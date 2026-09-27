@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOOMA</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff5fa;
+  color: #241d24;
+}
+
+header {
+  height: 70px;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #f0dce7;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.logo span {
+  color: #ff69ad;
+}
+
+.search {
+  width: 40%;
+  padding: 12px 18px;
+  border: 1px solid #ead6e1;
+  border-radius: 30px;
+  outline: none;
+}
+
+.profile {
+  border: none;
+  background: #ffe0ef;
+  padding: 11px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.hero {
+  margin: 25px;
+  padding: 40px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ffd2e8, #eadbff);
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin: 0 0 10px;
+}
+
+.hero p {
+  color: #665866;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  padding: 0 25px 20px;
+  overflow-x: auto;
+}
+
+nav button {
+  border: 1px solid #ead6e1;
+  background: white;
+  padding: 11px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+nav button.active,
+.pink {
+  background: #ff69ad;
+  color: white;
+  border-color: #ff69ad;
+}
+
+.page {
+  display: none;
+  padding: 0 25px 100px;
+}
+
+.page.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid #ead6e1;
+  box-shadow: 0 8px 25px rgba(80, 30, 60, .06);
+}
+
+.picture {
+  height: 160px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  background: #f8dfeb;
+}
+
+.card h3 {
+  margin-bottom: 5px;
+}
+
+.card p {
+  color: #756875;
+}
+
+button {
+  font-weight: bold;
+}
+
+.action {
+  border: none;
+  background: #fff0f6;
+  padding: 10px 13px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.premium {
+  border: 2px solid #ff69ad;
+  background: linear-gradient(135deg, white, #fff0f8);
+}
+
+.option {
+  border: 1px solid #ead6e1;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #ead6e1;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 13px;
+  background: white;
+  border-top: 1px solid #ead6e1;
+  z-index: 20;
+}
+
+.bottom button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media(max-width: 650px) {
+  .search {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">LOO<span>MA</span></div>
+
+  <input
+    class="search"
+    placeholder="Search moods, outfits, food..."
+  >
+
+  <button class="profile">♡ Profile</button>
+</header>
+
+
+<div class="hero">
+  <h1>Your vibe. Your world. ✦</h1>
+  <p>
+    Discover ideas, make moodboards, plan outfits,
+    find food and hang out with friends.
+  </p>
+</div>
+
+
+<nav>
+  <button class="active" onclick="openPage('home', this)">🏠 Home</button>
+  <button onclick="openPage('friends', this)">💌 Friends</button>
+  <button onclick="openPage('closet', this)">👗 Closet</button>
+  <button onclick="openPage('outfit', this)">✨ What to Wear</button>
+  <button onclick="openPage('food', this)">🍓 Food</button>
+  <button onclick="openPage('photobooth', this)">📸 Photobooth</button>
+  <button onclick="openPage('themes', this)">🎨 Themes</button>
+</nav>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<h2>Made for your mood</h2>
+
+<div class="grid">
+
+<div class="card">
+  <div class="picture">🌙🎧</div>
+  <h3>Night Study</h3>
+  <p>12 songs · 34 visuals</p>
+  <button class="action">♡ Save</button>
+  <button class="action">🔄 Remix</button>
+</div>
+
+<div class="card">
+  <div class="picture">🎀📸</div>
+  <h3>Y2K Pink</h3>
+  <p>18 visuals · 7 remixes</p>
+  <button class="action">♡ Save</button>
+  <button class="action">🔄 Remix</button>
+</div>
+
+<div class="card">
+  <div class="picture">☁️🧸</div>
+  <h3>Cozy Room</h3>
+  <p>24 visuals · playlist attached</p>
+  <button class="action">♡ Save</button>
+  <button class="action">🔄 Remix</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FRIENDS -->
+
+<section id="friends" class="page">
+
+<h2>💌 Your Friends</h2>
+
+<div class="grid">
+
+<div class="card">
+  <div class="picture">🎀</div>
+  <h3>Taiba</h3>
+  <p>Posted a new moodboard</p>
+  <button class="action">💬 Message</button>
+</div>
+
+<div class="card">
+  <div class="picture">🧸</div>
+  <h3>Yumi</h3>
+  <p>Currently creating ✨</p>
+  <button class="action">💬 Message</button>
+</div>
+
+<div class="card">
+  <div class="picture">＋</div>
+  <h3>Add Friend</h3>
+  <p>Find your friends on LOOMA</p>
+  <button class="action">Add</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CLOSET -->
+
+<section id="closet" class="page">
+
+<div class="card premium">
+
+<h2>👗 Your Premium Closet</h2>
+
+<p>
+Upload your clothes and build your own digital wardrobe.
+</p>
+
+<button class="pink" onclick="addClothing()">
+＋ Add Clothing
+</button>
+
+<div id="clothes" class="grid" style="margin-top:20px;"></div>
+
+</div>
+
+</section>
+
+
+<!-- OUTFIT -->
+
+<section id="outfit" class="page">
+
+<div class="card">
+
+<h2>✨ What Should I Wear?</h2>
+
+<p>Tell LOOMA what you're doing.</p>
+
+<div>
+<button class="option">🏫 School</button>
+<button class="option">🛍️ Going Out</button>
+<button class="option">🎉 Party</button>
+<button class="option">🏖️ Beach</button>
+</div>
+
+<p>Choose your vibe:</p>
+
+<div>
+<button class="option">🎀 Cute</button>
+<button class="option">🖤 Cool</button>
+<button class="option">🌸 Soft</button>
+</div>
+
+<br>
+
+<button class="pink option" onclick="makeOutfit()">
+✨ Make My Outfit
+</button>
+
+<div id="outfitResult" class="result" style="display:none;"></div>
+
+</div>
+
+</section>
+
+
+<!-- FOOD -->
+
+<section id="food" class="page">
+
+<div class="card">
+
+<h2>🍓 What Should I Eat?</h2>
+
+<p>Pick something you're craving.</p>
+
+<button class="option">🍓 Sweet</button>
+<button class="option">🍜 Savory</button>
+<button class="option">🥪 Snack</button>
+<button class="option">🧋 Drink</button>
+
+<br><br>
+
+<button class="pink option" onclick="makeFood()">
+🍓 Give Me An Idea
+</button>
+
+<div id="foodResult" class="result" style="display:none;"></div>
+
+</div>
+
+</section>
+
+
+<!-- PHOTOBOOTH -->
+
+<section id="photobooth" class="page">
+
+<div class="card">
+
+<h2>📸 LOOMA Photobooth</h2>
+
+<p>
+Choose a cute frame for your next photo strip.
+</p>
+
+<div class="grid">
+
+<div class="card">
+  <div class="picture">🎀</div>
+  <h3>Pink Y2K</h3>
+  <button class="action">Use Template</button>
+</div>
+
+<div class="card">
+  <div class="picture">🧸</div>
+  <h3>Kawaii</h3>
+  <button class="action">Use Template</button>
+</div>
+
+<div class="card">
+  <div class="picture">💿</div>
+  <h3>Retro</h3>
+  <button class="action">Use Template</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- THEMES -->
+
+<section id="themes" class="page">
+
+<div class="card">
+
+<h2>🎨 Customize LOOMA</h2>
+
+<p>Choose the look of your world.</p>
+
+<button class="option" onclick="theme('pink')">🎀 Pink</button>
+<button class="option" onclick="theme('purple')">💜 Purple</button>
+<button class="option" onclick="theme('blue')">☁️ Blue</button>
+<button class="option" onclick="theme('dark')">🖤 Dark</button>
+
+</div>
+
+</section>
+
+
+<div class="bottom">
+
+<button onclick="openPage('home')">🏠 Home</button>
+
+<button onclick="openPage('friends')">💌 Friends</button>
+
+<button onclick="alert('Create mode coming next!')">
+＋ Create
+</button>
+
+<button onclick="openPage('closet')">👗 Closet</button>
+
+</div>
+
+
+<script>
+
+function openPage(page, button) {
+
+  document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  document.getElementById(page)
+    .classList.add("active");
+
+  document.querySelectorAll("nav button")
+    .forEach(b => b.classList.remove("active"));
+
+  if(button) {
+    button.classList.add("active");
+  }
+
+  window.scrollTo(0, 0);
+}
+
+
+function addClothing() {
+
+  const name = prompt(
+    "What clothing item are you adding?"
+  );
+
+  if(!name) return;
+
+  const card = document.createElement("div");
+
+  card.className = "card";
+
+  card.innerHTML = `
+    <div class="picture">👚</div>
+    <h3>${name}</h3>
+    <p>Saved to your closet ✨</p>
+  `;
+
+  document.getElementById("clothes")
+    .appendChild(card);
+}
+
+
+function makeOutfit() {
+
+  const outfits = [
+
+    "🎀 White top + blue jeans + sneakers + small bag",
+
+    "🌸 Pink top + skirt + flats + hair accessory",
+
+    "🖤 Oversized tee + jeans + sneakers + shoulder bag"
+
+  ];
+
+  const outfit =
+    outfits[Math.floor(Math.random() * outfits.length)];
+
+  const result =
+    document.getElementById("outfitResult");
+
+  result.style.display = "block";
+
+  result.innerHTML = `
+    <h3>✨ Your LOOMA Outfit</h3>
+    <p>${outfit}</p>
+
+    <button
+      class="pink option"
+      onclick="makeOutfit()"
+    >
+      🔄 Another Outfit
+    </button>
+  `;
+}
+
+
+function makeFood() {
+
+  const foods = [
+
+    "🍓 Strawberry yogurt parfait",
+
+    "🥪 Cheesy toastie",
+
+    "🍜 Easy noodle bowl",
+
+    "🧋 Berry milk drink"
+
+  ];
+
+  const food =
+    foods[Math.floor(Math.random() * foods.length)];
+
+  const result =
+    document.getElementById("foodResult");
+
+  result.style.display = "block";
+
+  result.innerHTML = `
+    <h3>🍓 LOOMA Food Idea</h3>
+    <p>${food}</p>
+
+    <button
+      class="pink option"
+      onclick="makeFood()"
+    >
+      🔄 Another Idea
+    </button>
+  `;
+}
+
+
+function theme(type) {
+
+  if(type === "pink") {
+    document.body.style.background = "#fff5fa";
+  }
+
+  if(type === "purple") {
+    document.body.style.background = "#f7f0ff";
+  }
+
+  if(type === "blue") {
+    document.body.style.background = "#eef8ff";
+  }
+
+  if(type === "dark") {
+    document.body.style.background = "#17131a";
+    document.body.style.color = "white";
+  }
+
+}
+
+</script>
+
+</body>
+</html>s
