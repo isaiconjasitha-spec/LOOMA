@@ -3,19 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOOMA</title>
+<title>LOOMA 🎀</title>
 
 <style>
 :root{
   --pink:#ffb6d9;
-  --pink2:#ffd9eb;
-  --dark:#17151a;
-  --soft:#fff7fb;
-  --white:#ffffff;
-  --gray:#77727a;
-  --line:#eadfe6;
-  --shadow:0 8px 30px rgba(40,20,35,.08);
-  --radius:20px;
+  --hot:#ff5fa2;
+  --baby:#fff0f7;
+  --white:#fffafd;
+  --cream:#fff8fb;
+  --ink:#2d2530;
+  --muted:#8d7d89;
+  --purple:#e7d8ff;
+  --blue:#dff3ff;
+  --mint:#dff8ee;
+  --peach:#ffe4d6;
+  --yellow:#fff1b8;
+  --shadow:0 12px 30px rgba(255,95,162,.12);
+  --radius:24px;
 }
 
 *{
@@ -28,9 +33,13 @@ html{
 
 body{
   margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  background:var(--soft);
-  color:var(--dark);
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at 5% 10%,#ffe2ef 0 80px,transparent 81px),
+    radial-gradient(circle at 95% 20%,#eadfff 0 90px,transparent 91px),
+    radial-gradient(circle at 15% 90%,#def8ef 0 100px,transparent 101px),
+    var(--cream);
+  color:var(--ink);
 }
 
 button,
@@ -52,273 +61,442 @@ img{
   display:none!important;
 }
 
-/* TOP BAR */
+/* =========================
+   APP SHELL
+========================= */
 
-.topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  height:68px;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-  z-index:1000;
+.app{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 22px;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:245px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  padding:22px 16px;
+  background:rgba(255,250,253,.94);
+  backdrop-filter:blur(15px);
+  border-right:2px solid #ffe0ee;
+  z-index:20;
 }
 
 .logo{
-  font-size:25px;
+  text-align:center;
+  font-size:30px;
   font-weight:900;
-  letter-spacing:2px;
+  letter-spacing:-2px;
+  margin:5px 0 3px;
 }
 
 .logo span{
-  color:#ff78b8;
+  color:var(--hot);
 }
 
-.top-search{
-  width:min(420px,42vw);
-  background:#f7f2f5;
-  border:0;
-  border-radius:999px;
-  padding:11px 17px;
-  outline:none;
+.logo-sub{
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:20px;
 }
 
-.top-actions{
+.bunny{
+  font-size:48px;
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.nav{
   display:flex;
+  flex-direction:column;
   gap:8px;
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  padding:12px 14px;
+  border-radius:17px;
+  text-align:left;
+  font-weight:700;
+  transition:.2s;
+}
+
+.nav button:hover{
+  background:var(--baby);
+  transform:translateX(3px);
+}
+
+.nav button.active{
+  background:linear-gradient(135deg,#ffd2e7,#ffb6d9);
+  box-shadow:0 8px 18px rgba(255,95,162,.12);
+}
+
+.sidebar-bottom{
+  position:absolute;
+  bottom:20px;
+  left:16px;
+  right:16px;
+}
+
+.mini-card{
+  background:white;
+  border:2px solid #ffe3ef;
+  border-radius:20px;
+  padding:13px;
+  text-align:center;
+  font-size:12px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:245px;
+  width:calc(100% - 245px);
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:15;
+  background:rgba(255,250,253,.9);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #ffe4ef;
+  padding:13px 25px;
+  display:flex;
+  gap:14px;
   align-items:center;
 }
 
-.icon-btn{
-  border:0;
-  background:#f8f1f5;
-  width:40px;
-  height:40px;
-  border-radius:50%;
+.search{
+  flex:1;
+  max-width:600px;
+  position:relative;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-  position:fixed;
-  top:68px;
-  bottom:0;
-  left:0;
-  width:230px;
-  background:white;
-  border-right:1px solid var(--line);
-  padding:18px 12px;
-  overflow:auto;
-  z-index:900;
-}
-
-.nav-btn{
+.search input{
   width:100%;
-  border:0;
-  background:transparent;
-  padding:13px 15px;
-  margin-bottom:4px;
-  border-radius:14px;
-  text-align:left;
-  color:#514b51;
-  font-weight:700;
+  border:2px solid #ffd9e9;
+  background:white;
+  border-radius:18px;
+  padding:12px 16px 12px 43px;
+  outline:none;
 }
 
-.nav-btn:hover,
-.nav-btn.active{
-  background:var(--pink2);
-  color:#161218;
+.search span{
+  position:absolute;
+  left:15px;
+  top:10px;
+  font-size:20px;
 }
 
-.nav-title{
-  font-size:11px;
-  color:#aaa0a8;
-  font-weight:800;
-  padding:18px 15px 7px;
-  text-transform:uppercase;
-  letter-spacing:1px;
+.top-actions{
+  margin-left:auto;
+  display:flex;
+  gap:8px;
 }
 
-/* MAIN */
-
-.main{
-  margin-left:230px;
-  padding:92px 28px 90px;
-  max-width:1400px;
+.icon-btn{
+  border:2px solid #ffdce9;
+  background:white;
+  width:43px;
+  height:43px;
+  border-radius:15px;
+  font-size:19px;
 }
 
 .page{
   display:none;
+  padding:30px;
+  max-width:1250px;
+  margin:auto;
 }
 
 .page.active{
   display:block;
 }
 
-.page-title{
-  font-size:32px;
-  margin:0 0 8px;
-}
+/* =========================
+   HERO
+========================= */
 
-.page-subtitle{
-  color:var(--gray);
-  margin:0 0 24px;
-}
-
-/* CARDS */
-
-.card{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
+.hero{
+  background:
+    radial-gradient(circle at 10% 20%,#fff 0 40px,transparent 41px),
+    linear-gradient(135deg,#ffd3e7,#ffeef7 50%,#eadfff);
+  border:2px solid white;
+  border-radius:32px;
+  padding:35px;
+  position:relative;
+  overflow:hidden;
   box-shadow:var(--shadow);
 }
 
-.hero{
-  padding:30px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-  margin-bottom:25px;
-  background:linear-gradient(120deg,#fff,#ffe9f3);
+.hero h1{
+  margin:0;
+  font-size:42px;
+  line-height:1.05;
 }
 
-.hero h1{
-  margin:0 0 8px;
-  font-size:38px;
+.hero h1 span{
+  color:var(--hot);
 }
 
 .hero p{
-  color:#665e65;
-  max-width:650px;
+  color:#695866;
+  max-width:600px;
+  line-height:1.6;
 }
 
-.primary{
-  background:#17151a;
+.hero-stickers{
+  position:absolute;
+  right:35px;
+  top:25px;
+  font-size:42px;
+  line-height:1.5;
+  transform:rotate(4deg);
+}
+
+.hero-bunny{
+  font-size:85px;
+  position:absolute;
+  right:100px;
+  bottom:-5px;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:20px;
+}
+
+.btn{
+  border:0;
+  border-radius:17px;
+  padding:12px 17px;
+  font-weight:800;
+  background:white;
+  color:var(--ink);
+  box-shadow:0 7px 16px rgba(60,30,50,.08);
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn.primary{
+  background:var(--hot);
   color:white;
-  border:0;
-  padding:12px 18px;
-  border-radius:999px;
-  font-weight:800;
 }
 
-.secondary{
-  background:#ffe1ef;
-  color:#17151a;
-  border:0;
-  padding:12px 18px;
-  border-radius:999px;
-  font-weight:800;
+.btn.soft{
+  background:#fff;
+  border:2px solid #ffd9e8;
 }
 
-.danger{
-  background:#ffe2e2;
-  color:#a52e2e;
+.btn.danger{
+  background:#ffe0e6;
+  color:#a52e47;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:32px 0 15px;
+}
+
+.section-title h2{
+  margin:0;
+  font-size:23px;
+}
+
+.section-title p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.chip{
   border:0;
-  padding:10px 15px;
   border-radius:999px;
+  padding:9px 14px;
+  background:white;
+  border:2px solid #ffe0ec;
   font-weight:700;
 }
 
-.small-btn{
-  padding:8px 12px;
-  border-radius:999px;
-  border:0;
-  background:#f5eef2;
-  font-weight:700;
+.chip:hover{
+  background:var(--baby);
 }
 
-/* GRIDS */
+/* =========================
+   CARDS
+========================= */
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-}
-
-.grid-3{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:18px;
 }
 
-.grid-2{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
+.card{
+  background:white;
+  border:2px solid #ffe5ef;
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);
 }
 
-/* POST */
-
-.post{
-  overflow:hidden;
+.card h3{
+  margin:8px 0 5px;
 }
 
-.post-img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  background:#f2e8ee;
-}
-
-.post-body{
-  padding:15px;
-}
-
-.post-title{
-  font-weight:900;
-  margin-bottom:5px;
-}
-
-.post-desc{
-  color:#756d74;
-  font-size:14px;
+.card p{
+  color:#766674;
   line-height:1.5;
+  font-size:14px;
 }
 
-.post-actions{
+.emoji-art{
+  min-height:180px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:68px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff0f7,#f5eaff);
+}
+
+.emoji-art .tiny{
+  position:absolute;
+  font-size:24px;
+}
+
+.t1{top:12px;left:18px}
+.t2{top:20px;right:20px}
+.t3{bottom:14px;left:25px}
+.t4{bottom:18px;right:30px}
+
+.card-actions{
   display:flex;
   gap:7px;
   margin-top:13px;
 }
 
-.post-actions button{
+.small-btn{
   flex:1;
+  border:0;
+  border-radius:13px;
+  padding:9px;
+  background:#fff1f7;
+  font-weight:700;
 }
 
-/* FORMS */
+.small-btn:hover{
+  background:#ffdbea;
+}
 
-.form-card{
-  padding:22px;
-  margin-bottom:20px;
+.tag{
+  display:inline-block;
+  padding:5px 8px;
+  background:#ffe8f2;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  color:#b33d72;
+}
+
+/* =========================
+   MEALS
+========================= */
+
+.meal-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.meal-day{
+  background:white;
+  border:2px solid #ffe1ed;
+  border-radius:22px;
+  padding:15px;
+}
+
+.meal-day h3{
+  margin-top:0;
+}
+
+.meal-item{
+  background:#fff6fa;
+  border-radius:16px;
+  padding:11px;
+  margin:8px 0;
+}
+
+.meal-item strong{
+  display:block;
+}
+
+.meal-emoji{
+  font-size:30px;
+  margin-bottom:4px;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
 }
 
 .field{
-  margin-bottom:16px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.field.full{
+  grid-column:1/-1;
 }
 
 .field label{
-  display:block;
+  font-size:13px;
   font-weight:800;
-  margin-bottom:7px;
 }
 
 .field input,
 .field textarea,
 .field select{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:13px;
+  border:2px solid #ffddea;
+  border-radius:15px;
   padding:12px;
+  background:white;
   outline:none;
-  background:#fff;
 }
 
 .field textarea{
@@ -326,228 +504,271 @@ img{
   resize:vertical;
 }
 
-.row{
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--pink);
+}
+
+/* =========================
+   CLOSET
+========================= */
+
+.closet-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.clothing-card{
+  background:white;
+  border:2px solid #ffe1ec;
+  border-radius:22px;
+  padding:14px;
+  text-align:center;
+}
+
+.clothing-emoji{
+  height:130px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#fff0f7,#eee5ff);
   display:flex;
-  gap:10px;
+  align-items:center;
+  justify-content:center;
+  font-size:65px;
+}
+
+/* =========================
+   OUTFIT
+========================= */
+
+.outfit-box{
+  background:linear-gradient(135deg,#fff0f7,#f0e7ff);
+  border:2px solid white;
+  border-radius:30px;
+  padding:30px;
+  text-align:center;
+}
+
+.outfit-display{
+  display:flex;
+  justify-content:center;
+  gap:18px;
   flex-wrap:wrap;
-  align-items:center;
+  margin:20px 0;
 }
 
-/* PROFILE */
-
-.profile-head{
-  padding:28px;
+.outfit-piece{
+  width:145px;
+  height:145px;
+  border-radius:25px;
+  background:white;
   display:flex;
   align-items:center;
-  gap:20px;
-  margin-bottom:20px;
-}
-
-.avatar{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#ffe3ef;
-  border:4px solid white;
+  justify-content:center;
+  flex-direction:column;
   box-shadow:var(--shadow);
 }
 
-.profile-name{
-  font-size:28px;
-  font-weight:900;
+.outfit-piece .big{
+  font-size:55px;
 }
 
-/* PHOTOS */
+/* =========================
+   PHOTOBOOTH
+========================= */
 
-.photo-stage{
-  background:#17151a;
-  border-radius:20px;
-  padding:18px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.photo-layout{
+  display:grid;
+  grid-template-columns:1.4fr .8fr;
+  gap:20px;
+}
+
+.camera-box{
+  background:#19151a;
+  border-radius:28px;
+  padding:20px;
   min-height:430px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
 }
 
+#video,
 #photoCanvas{
   max-width:100%;
-  max-height:600px;
-  border-radius:12px;
+  max-height:390px;
+  border-radius:20px;
+}
+
+.photo-placeholder{
+  color:white;
+  text-align:center;
+  font-size:60px;
+}
+
+.photo-controls{
   background:white;
+  border:2px solid #ffe2ed;
+  border-radius:25px;
+  padding:18px;
 }
 
-.camera-video{
-  max-width:100%;
-  border-radius:15px;
-  background:#111;
+.control-group{
+  margin-bottom:18px;
 }
 
-/* CLOSET */
-
-.closet-item{
-  overflow:hidden;
+.control-group h4{
+  margin:0 0 9px;
 }
 
-.closet-item img{
-  width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-}
-
-/* MEALS */
-
-.meal-card{
-  padding:20px;
-  position:relative;
-  overflow:hidden;
-}
-
-.meal-emoji{
-  font-size:42px;
-  margin-bottom:8px;
-}
-
-.meal-card h3{
-  margin:5px 0;
-}
-
-.meal-card p{
-  color:#716971;
-  line-height:1.5;
-  font-size:14px;
-}
-
-.meal-tags{
+.option-row{
   display:flex;
-  gap:6px;
   flex-wrap:wrap;
-  margin:12px 0;
+  gap:7px;
 }
 
-.tag{
-  background:#fff0f7;
-  border-radius:999px;
-  padding:6px 9px;
+.option{
+  border:2px solid #ffe0ec;
+  background:#fff8fb;
+  padding:8px 11px;
+  border-radius:12px;
   font-size:12px;
   font-weight:700;
 }
 
-.meal-day{
+.option.active{
+  background:#ffc7df;
+  border-color:#ff94bf;
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+.music-box{
+  text-align:center;
+  padding:30px;
+  background:linear-gradient(135deg,#eee4ff,#ffe6f1);
+  border-radius:30px;
+}
+
+.music-disc{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:white;
+  margin:10px auto 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+  box-shadow:var(--shadow);
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-head{
+  text-align:center;
+  background:white;
+  border:2px solid #ffe0ec;
+  border-radius:28px;
+  padding:30px;
+}
+
+.avatar{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:#ffd7e8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  margin:auto;
+  overflow:hidden;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.setting-card{
+  background:white;
+  border:2px solid #ffe1ec;
+  border-radius:23px;
   padding:20px;
 }
 
-.meal-day h3{
+.setting-card h3{
   margin-top:0;
 }
 
-.meal-slot{
-  background:#faf5f8;
-  border-radius:14px;
-  padding:13px;
-  margin-bottom:10px;
-}
-
-.meal-slot strong{
-  display:block;
-  margin-bottom:4px;
-}
-
-.meal-slot span{
-  color:#6e666c;
-  font-size:14px;
-}
-
-/* MUSIC */
-
-.music-item{
-  padding:18px;
+.theme-row{
   display:flex;
-  align-items:center;
-  gap:15px;
+  gap:9px;
+  flex-wrap:wrap;
 }
 
-.music-icon{
-  width:50px;
-  height:50px;
-  background:#ffe1ef;
+.theme{
+  border:3px solid white;
+  width:48px;
+  height:48px;
   border-radius:15px;
-  display:grid;
-  place-items:center;
-  font-size:22px;
+  box-shadow:0 2px 10px #ddd;
 }
 
-/* NOTIFICATIONS */
+.theme.pink{background:#ffb6d9}
+.theme.lavender{background:#e7d8ff}
+.theme.mint{background:#dff8ee}
+.theme.peach{background:#ffe0d0}
+.theme.dark{background:#29232d}
 
-.notification{
-  padding:17px;
-  border-bottom:1px solid var(--line);
-}
-
-.notification:last-child{
-  border-bottom:0;
-}
-
-/* SETTINGS */
-
-.setting{
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.setting:last-child{
-  border-bottom:0;
-}
-
-/* MOBILE NAV */
-
-.mobile-nav{
-  display:none;
-}
-
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
-  padding:45px 20px;
+  background:white;
+  border:2px dashed #ffc9df;
+  border-radius:25px;
+  padding:35px;
   text-align:center;
-  color:#817880;
 }
 
-/* TOAST */
-
-.toast{
-  position:fixed;
-  bottom:25px;
-  left:50%;
-  transform:translateX(-50%) translateY(100px);
-  background:#17151a;
-  color:white;
-  padding:13px 20px;
-  border-radius:999px;
-  z-index:3000;
-  opacity:0;
-  transition:.25s;
+.empty .big{
+  font-size:65px;
 }
 
-.toast.show{
-  transform:translateX(-50%) translateY(0);
-  opacity:1;
-}
-
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.45);
-  z-index:2000;
+  background:rgba(35,20,30,.45);
   display:none;
   align-items:center;
   justify-content:center;
   padding:20px;
+  z-index:100;
 }
 
 .modal.show{
@@ -555,100 +776,184 @@ img{
 }
 
 .modal-box{
+  max-width:550px;
+  width:100%;
   background:white;
-  border-radius:24px;
-  width:min(550px,100%);
-  max-height:90vh;
-  overflow:auto;
+  border-radius:28px;
   padding:25px;
+  max-height:85vh;
+  overflow:auto;
 }
 
-/* RESPONSIVE */
+.modal-box h2{
+  margin-top:0;
+}
 
-@media(max-width:1050px){
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+  display:none;
+}
+
+/* =========================
+   DARK THEME
+========================= */
+
+body.dark{
+  --cream:#1e1921;
+  --white:#29222d;
+  --ink:#fff2f8;
+  --muted:#c8b7c5;
+  background:#1e1921;
+}
+
+body.dark .sidebar,
+body.dark .topbar{
+  background:rgba(38,30,42,.95);
+  border-color:#493b4c;
+}
+
+body.dark .card,
+body.dark .meal-day,
+body.dark .clothing-card,
+body.dark .setting-card,
+body.dark .profile-head,
+body.dark .modal-box,
+body.dark .photo-controls{
+  background:#29222d;
+  border-color:#4b3b4c;
+}
+
+body.dark .search input,
+body.dark .field input,
+body.dark .field textarea,
+body.dark .field select{
+  background:#211c24;
+  color:white;
+  border-color:#4c3b4d;
+}
+
+body.dark .nav button{
+  color:#fff2f8;
+}
+
+body.dark .small-btn,
+body.dark .chip,
+body.dark .option{
+  background:#352b39;
+  color:white;
+  border-color:#4c3b4d;
+}
+
+body.dark .mini-card{
+  background:#29222d;
+  border-color:#4b3b4c;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
   .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .meal-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .closet-grid{
     grid-template-columns:repeat(3,1fr);
   }
 
-  .grid-3{
-    grid-template-columns:repeat(2,1fr);
+  .photo-layout{
+    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:800px){
+@media(max-width:760px){
   .sidebar{
     display:none;
   }
 
   .main{
     margin-left:0;
-    padding:82px 15px 90px;
+    width:100%;
+    padding-bottom:80px;
   }
 
-  .top-search{
-    display:none;
-  }
-
-  .hero{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .hero h1{
-    font-size:30px;
-  }
-
-  .grid,
-  .grid-3,
-  .grid-2{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .mobile-nav{
-    position:fixed;
-    display:flex;
-    bottom:0;
-    left:0;
-    right:0;
-    height:68px;
-    background:white;
-    border-top:1px solid var(--line);
-    z-index:1000;
-    justify-content:space-around;
-    align-items:center;
-  }
-
-  .mobile-nav button{
-    background:none;
-    border:0;
-    font-size:20px;
-  }
-
-  .mobile-nav span{
-    display:block;
-    font-size:9px;
-    margin-top:2px;
-  }
-}
-
-@media(max-width:550px){
-  .grid,
-  .grid-3,
-  .grid-2{
-    grid-template-columns:1fr;
-  }
-
-  .profile-head{
-    flex-direction:column;
-    text-align:center;
+  .page{
+    padding:18px;
   }
 
   .topbar{
-    padding:0 12px;
+    padding:10px 12px;
   }
 
-  .page-title{
-    font-size:27px;
+  .hero{
+    padding:24px;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+
+  .hero-stickers{
+    position:static;
+    margin-top:10px;
+    font-size:28px;
+  }
+
+  .hero-bunny{
+    display:none;
+  }
+
+  .grid,
+  .meal-grid,
+  .closet-grid,
+  .settings-grid,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    z-index:50;
+    background:rgba(255,250,253,.95);
+    border:2px solid #ffddeb;
+    border-radius:22px;
+    padding:7px;
+    box-shadow:0 10px 35px rgba(50,20,40,.15);
+    justify-content:space-around;
+  }
+
+  .mobile-nav button{
+    border:0;
+    background:transparent;
+    border-radius:15px;
+    padding:8px;
+    font-size:11px;
+    font-weight:800;
+  }
+
+  .mobile-nav button.active{
+    background:#ffd1e4;
+  }
+
+  body.dark .mobile-nav{
+    background:#29222d;
+    border-color:#4b3b4c;
   }
 }
 </style>
@@ -656,755 +961,659 @@ img{
 
 <body>
 
-<!-- TOP BAR -->
-
-<header class="topbar">
-  <div class="logo">LOO<span>MA</span></div>
-
-  <input
-    id="globalSearch"
-    class="top-search"
-    placeholder="Search LOOMA..."
-    onkeydown="handleGlobalSearch(event)"
-  >
-
-  <div class="top-actions">
-    <button class="icon-btn" onclick="showPage('notifications')">🔔</button>
-    <button class="icon-btn" onclick="showPage('profile')">👤</button>
-  </div>
-</header>
-
+<div class="app">
 
 <!-- SIDEBAR -->
-
 <aside class="sidebar">
 
-  <button class="nav-btn active" data-page="home" onclick="showPage('home')">
-    🏠 Home
-  </button>
+  <div class="bunny">🐰</div>
 
-  <button class="nav-btn" data-page="discover" onclick="showPage('discover')">
-    🔎 Discover
-  </button>
+  <div class="logo">
+    LOO<span>MA</span>
+  </div>
 
-  <button class="nav-btn" data-page="saved" onclick="showPage('saved')">
-    💗 Saved
-  </button>
+  <div class="logo-sub">
+    your tiny corner of pretty things ✨
+  </div>
 
-  <button class="nav-btn" data-page="create" onclick="showPage('create')">
-    📝 Create
-  </button>
+  <nav class="nav">
 
-  <button class="nav-btn" data-page="photobooth" onclick="showPage('photobooth')">
-    📸 Photobooth
-  </button>
+    <button onclick="showPage('home')" data-page="home">🏠 Home</button>
+    <button onclick="showPage('discover')" data-page="discover">🔎 Discover</button>
+    <button onclick="showPage('saved')" data-page="saved">💗 Saved</button>
+    <button onclick="showPage('create')" data-page="create">🎀 Create</button>
+    <button onclick="showPage('photobooth')" data-page="photobooth">📸 Photobooth</button>
+    <button onclick="showPage('closet')" data-page="closet">👗 Closet</button>
+    <button onclick="showPage('outfits')" data-page="outfits">✨ Outfits</button>
+    <button onclick="showPage('meals')" data-page="meals">🍓 Meal Plans</button>
+    <button onclick="showPage('music')" data-page="music">🎧 Music</button>
+    <button onclick="showPage('profile')" data-page="profile">🐰 Profile</button>
+    <button onclick="showPage('notifications')" data-page="notifications">💌 Notifications</button>
+    <button onclick="showPage('settings')" data-page="settings">⚙️ Settings</button>
 
-  <button class="nav-btn" data-page="closet" onclick="showPage('closet')">
-    👗 Closet
-  </button>
+  </nav>
 
-  <button class="nav-btn" data-page="outfits" onclick="showPage('outfits')">
-    👚 Outfits
-  </button>
-
-  <button class="nav-btn" data-page="meals" onclick="showPage('meals')">
-    🍱 Meal Plans
-  </button>
-
-  <button class="nav-btn" data-page="music" onclick="showPage('music')">
-    🎵 Music
-  </button>
-
-  <div class="nav-title">You</div>
-
-  <button class="nav-btn" data-page="profile" onclick="showPage('profile')">
-    👤 Profile
-  </button>
-
-  <button class="nav-btn" data-page="notifications" onclick="showPage('notifications')">
-    🔔 Notifications
-  </button>
-
-  <button class="nav-btn" data-page="settings" onclick="showPage('settings')">
-    ⚙️ Settings
-  </button>
+  <div class="sidebar-bottom">
+    <div class="mini-card">
+      🎀 LOOMA<br>
+      <small>made for cute little moments ✨</small>
+    </div>
+  </div>
 
 </aside>
 
-
 <!-- MAIN -->
-
 <main class="main">
 
-<!-- HOME -->
+<header class="topbar">
 
+  <div class="search">
+    <span>🔎</span>
+    <input
+      id="searchInput"
+      placeholder="search cute things... 🎀"
+      oninput="searchEverything()"
+    >
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" onclick="showPage('notifications')">💌</button>
+    <button class="icon-btn" onclick="showPage('profile')">🐰</button>
+  </div>
+
+</header>
+
+<!-- HOME -->
 <section id="home" class="page active">
 
-  <div class="hero card">
+  <div class="hero">
 
-    <div>
-      <h1>Welcome to LOOMA ✨</h1>
-
-      <p>
-        Your cozy little corner for ideas, outfits, food, music,
-        creativity and everyday inspiration.
-      </p>
-
-      <div class="row">
-        <button class="primary" onclick="showPage('discover')">
-          Explore ideas
-        </button>
-
-        <button class="secondary" onclick="showPage('create')">
-          Create something
-        </button>
-      </div>
+    <div class="hero-stickers">
+      🌸 ✨<br>
+      🎀 💗
     </div>
 
-    <div style="font-size:90px">
-      🌷
+    <div class="hero-bunny">🐰</div>
+
+    <h1>
+      🌷 welcome to <span>LOOMA</span> 🎀
+    </h1>
+
+    <p>
+      Your tiny corner for pretty outfits, yummy meal ideas,
+      cute photos, playlists, inspiration and little everyday moments. 🧸✨
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn primary" onclick="showPage('discover')">
+        🔎 Explore
+      </button>
+
+      <button class="btn" onclick="showPage('meals')">
+        🍓 Meals
+      </button>
+
+      <button class="btn" onclick="showPage('closet')">
+        👗 Closet
+      </button>
+
+      <button class="btn" onclick="showPage('photobooth')">
+        📸 Photos
+      </button>
     </div>
 
   </div>
 
+  <div class="section-title">
+    <div>
+      <h2>🎀 little LOOMA categories</h2>
+      <p>pick your current vibe ✨</p>
+    </div>
+  </div>
 
-  <h2>Made for you</h2>
+  <div class="chips">
+    <button class="chip" onclick="showPage('discover')">🌸 Cute</button>
+    <button class="chip" onclick="showPage('closet')">👗 Fashion</button>
+    <button class="chip" onclick="showPage('meals')">🍓 Food</button>
+    <button class="chip" onclick="showPage('photobooth')">📸 Photos</button>
+    <button class="chip" onclick="showPage('music')">🎧 Music</button>
+    <button class="chip" onclick="showPage('outfits')">✨ Outfits</button>
+  </div>
+
+  <div class="section-title">
+    <div>
+      <h2>💗 today's cute corner</h2>
+      <p>tiny ideas for a tiny bit of joy</p>
+    </div>
+  </div>
 
   <div id="homePosts" class="grid"></div>
 
 </section>
 
-
 <!-- DISCOVER -->
-
 <section id="discover" class="page">
 
-  <h1 class="page-title">Discover 🔎</h1>
-
-  <p class="page-subtitle">
-    Find cute ideas and save the ones you love.
-  </p>
-
-  <div class="card form-card">
-
-    <div class="field">
-      <label>Search</label>
-      <input
-        id="discoverSearch"
-        placeholder="Try fashion, study, food..."
-        oninput="renderDiscover()"
-      >
+  <div class="section-title">
+    <div>
+      <h2>🔎 Discover</h2>
+      <p>find your next little obsession 🎀</p>
     </div>
-
-    <div class="row">
-      <button class="small-btn" onclick="setDiscoverCategory('all')">All</button>
-      <button class="small-btn" onclick="setDiscoverCategory('fashion')">👗 Fashion</button>
-      <button class="small-btn" onclick="setDiscoverCategory('study')">📚 Study</button>
-      <button class="small-btn" onclick="setDiscoverCategory('food')">🍓 Food</button>
-      <button class="small-btn" onclick="setDiscoverCategory('art')">🎨 Art</button>
-    </div>
-
   </div>
+
+  <div class="chips">
+    <button class="chip" onclick="filterPosts('all')">✨ All</button>
+    <button class="chip" onclick="filterPosts('study')">📚 Study</button>
+    <button class="chip" onclick="filterPosts('fashion')">👗 Fashion</button>
+    <button class="chip" onclick="filterPosts('food')">🍓 Food</button>
+    <button class="chip" onclick="filterPosts('art')">🎨 Art</button>
+    <button class="chip" onclick="filterPosts('cute')">🐰 Cute</button>
+  </div>
+
+  <br>
 
   <div id="discoverPosts" class="grid"></div>
 
 </section>
 
-
 <!-- SAVED -->
-
 <section id="saved" class="page">
 
-  <h1 class="page-title">Saved 💗</h1>
-
-  <p class="page-subtitle">
-    Your favorite LOOMA ideas live here.
-  </p>
+  <div class="section-title">
+    <div>
+      <h2>💗 Saved</h2>
+      <p>your little collection of things you love</p>
+    </div>
+  </div>
 
   <div id="savedPosts" class="grid"></div>
 
 </section>
 
-
 <!-- CREATE -->
-
 <section id="create" class="page">
 
-  <h1 class="page-title">Create 📝</h1>
-
-  <p class="page-subtitle">
-    Turn an idea into your own LOOMA post.
-  </p>
-
-  <div class="card form-card">
-
-    <div class="field">
-      <label>Title</label>
-      <input id="postTitle" placeholder="My cute idea">
-    </div>
-
-    <div class="field">
-      <label>Description</label>
-      <textarea
-        id="postDescription"
-        placeholder="Tell everyone about your idea..."
-      ></textarea>
-    </div>
-
-    <div class="field">
-      <label>Category</label>
-
-      <select id="postCategory">
-        <option value="fashion">Fashion</option>
-        <option value="study">Study</option>
-        <option value="food">Food</option>
-        <option value="art">Art</option>
-        <option value="lifestyle">Lifestyle</option>
-      </select>
-
-    </div>
-
-    <div class="field">
-      <label>Image</label>
-
-      <input
-        id="postImage"
-        type="file"
-        accept="image/*"
-        onchange="previewPostImage(event)"
-      >
-
-      <img
-        id="postPreview"
-        class="hidden"
-        style="margin-top:12px;max-height:300px;border-radius:15px"
-      >
-    </div>
-
-    <button class="primary" onclick="createPost()">
-      Publish post
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- PHOTOBOOTH -->
-
-<section id="photobooth" class="page">
-
-  <h1 class="page-title">Photobooth 📸</h1>
-
-  <p class="page-subtitle">
-    Take a photo, decorate it and save it.
-  </p>
-
-  <div class="grid-2">
-
-    <div class="card form-card">
-
-      <h3>Choose a photo</h3>
-
-      <div class="field">
-        <label>Upload</label>
-
-        <input
-          id="boothUpload"
-          type="file"
-          accept="image/*"
-          onchange="loadBoothImage(event)"
-        >
-      </div>
-
-      <div class="row">
-
-        <button class="secondary" onclick="startCamera()">
-          📷 Camera
-        </button>
-
-        <button class="small-btn" onclick="takePhoto()">
-          Take photo
-        </button>
-
-        <button class="small-btn" onclick="retakePhoto()">
-          Retake
-        </button>
-
-        <button class="danger" onclick="stopCamera()">
-          Stop camera
-        </button>
-
-      </div>
-
-      <video
-        id="cameraVideo"
-        class="camera-video hidden"
-        autoplay
-        playsinline
-      ></video>
-
-      <h3>Filters</h3>
-
-      <div class="row">
-
-        <button class="small-btn" onclick="setPhotoFilter('none')">
-          Normal
-        </button>
-
-        <button class="small-btn" onclick="setPhotoFilter('soft')">
-          Soft
-        </button>
-
-        <button class="small-btn" onclick="setPhotoFilter('gray')">
-          B&W
-        </button>
-
-        <button class="small-btn" onclick="setPhotoFilter('warm')">
-          Warm
-        </button>
-
-      </div>
-
-      <h3>Frames</h3>
-
-      <div class="row">
-
-        <button class="small-btn" onclick="setPhotoFrame('none')">
-          None
-        </button>
-
-        <button class="small-btn" onclick="setPhotoFrame('pink')">
-          Pink
-        </button>
-
-        <button class="small-btn" onclick="setPhotoFrame('white')">
-          White
-        </button>
-
-        <button class="small-btn" onclick="setPhotoFrame('black')">
-          Black
-        </button>
-
-      </div>
-
-      <h3>Templates</h3>
-
-      <div class="row">
-
-        <button class="small-btn" onclick="setPhotoTemplate('none')">
-          None
-        </button>
-
-        <button class="small-btn" onclick="setPhotoTemplate('cute')">
-          ♡ Cute
-        </button>
-
-        <button class="small-btn" onclick="setPhotoTemplate('stars')">
-          ✦ Stars
-        </button>
-
-        <button class="small-btn" onclick="setPhotoTemplate('flower')">
-          🌸 Flowers
-        </button>
-
-      </div>
-
-      <br>
-
-      <button class="primary" onclick="saveBoothPhoto()">
-        💾 Save photo
-      </button>
-
-    </div>
-
-
-    <div class="card photo-stage">
-
-      <canvas id="photoCanvas" width="600" height="600"></canvas>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CLOSET -->
-
-<section id="closet" class="page">
-
-  <h1 class="page-title">Digital Closet 👗</h1>
-
-  <p class="page-subtitle">
-    Add pieces you own and build outfits from them.
-  </p>
-
-  <div class="card form-card">
-
-    <div class="field">
-      <label>Item name</label>
-      <input id="closetName" placeholder="Pink hoodie">
-    </div>
-
-    <div class="field">
-      <label>Category</label>
-
-      <select id="closetCategory">
-        <option>Top</option>
-        <option>Bottom</option>
-        <option>Dress</option>
-        <option>Shoes</option>
-        <option>Accessory</option>
-        <option>Outerwear</option>
-      </select>
-
-    </div>
-
-    <div class="field">
-      <label>Photo</label>
-
-      <input
-        id="closetImage"
-        type="file"
-        accept="image/*"
-      >
-    </div>
-
-    <button class="primary" onclick="addClosetItem()">
-      Add to closet
-    </button>
-
-  </div>
-
-  <div id="closetGrid" class="grid"></div>
-
-</section>
-
-
-<!-- OUTFITS -->
-
-<section id="outfits" class="page">
-
-  <h1 class="page-title">Outfit Generator 👚</h1>
-
-  <p class="page-subtitle">
-    Mix pieces from your digital closet.
-  </p>
-
-  <div class="card form-card">
-
-    <button class="primary" onclick="generateOutfit()">
-      ✨ Generate outfit
-    </button>
-
-    <div
-      id="outfitResult"
-      style="margin-top:20px"
-    ></div>
-
-  </div>
-
-</section>
-
-
-<!-- MEALS -->
-
-<section id="meals" class="page">
-
-  <h1 class="page-title">Meal Plans 🍱</h1>
-
-  <p class="page-subtitle">
-    Plan simple, balanced meals and discover new food ideas.
-  </p>
-
-
-  <div class="card form-card">
-
-    <h2>🌷 Build your week</h2>
-
-    <p style="color:#746c73">
-      LOOMA meal plans focus on variety and enjoying food.
-      They are not weight-loss or calorie-counting plans.
-    </p>
-
-    <div class="row">
-
-      <button class="primary" onclick="generateMealPlan()">
-        ✨ Generate weekly plan
-      </button>
-
-      <button class="secondary" onclick="saveCurrentMealPlan()">
-        💾 Save plan
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div id="mealPlan" class="grid-3"></div>
-
-
-  <h2 style="margin-top:35px">
-    🍓 Food ideas
-  </h2>
-
-  <div class="card form-card">
-
-    <div class="row">
-
-      <button class="small-btn" onclick="randomMeal('breakfast')">
-        🌞 Breakfast
-      </button>
-
-      <button class="small-btn" onclick="randomMeal('lunch')">
-        🥪 Lunch
-      </button>
-
-      <button class="small-btn" onclick="randomMeal('dinner')">
-        🍝 Dinner
-      </button>
-
-      <button class="small-btn" onclick="randomMeal('snack')">
-        🍓 Snack
-      </button>
-
-    </div>
-
-    <div
-      id="randomMealResult"
-      style="margin-top:20px"
-    ></div>
-
-  </div>
-
-
-  <h2 style="margin-top:35px">
-    🛒 Shopping list
-  </h2>
-
-  <div class="card form-card">
-
-    <div id="shoppingList"></div>
-
-  </div>
-
-</section>
-
-
-<!-- MUSIC -->
-
-<section id="music" class="page">
-
-  <h1 class="page-title">Music 🎵</h1>
-
-  <p class="page-subtitle">
-    Keep your study and chill music in one place.
-  </p>
-
-  <div class="card form-card">
-
-    <div class="field">
-      <label>Add audio</label>
-
-      <input
-        id="musicUpload"
-        type="file"
-        accept="audio/*"
-        onchange="addMusic(event)"
-      >
-    </div>
-
-  </div>
-
-  <div id="musicList"></div>
-
-</section>
-
-
-<!-- PROFILE -->
-
-<section id="profile" class="page">
-
-  <h1 class="page-title">Profile 👤</h1>
-
-  <div class="card profile-head">
-
-    <img
-      id="profileAvatar"
-      class="avatar"
-      src=""
-      alt="Avatar"
-    >
-
+  <div class="section-title">
     <div>
-
-      <div
-        id="profileName"
-        class="profile-name"
-      >
-        LOOMA User
-      </div>
-
-      <div
-        id="profileBio"
-        style="color:#777;margin-top:6px"
-      >
-        Creating my little world ✨
-      </div>
-
+      <h2>🎀 Create something</h2>
+      <p>make your own tiny piece of LOOMA ✨</p>
     </div>
-
   </div>
-
-
-  <div class="card form-card">
-
-    <h2>Edit profile</h2>
-
-    <div class="field">
-      <label>Name</label>
-      <input id="editName">
-    </div>
-
-    <div class="field">
-      <label>Bio</label>
-      <textarea id="editBio"></textarea>
-    </div>
-
-    <div class="field">
-      <label>Avatar</label>
-      <input
-        id="editAvatar"
-        type="file"
-        accept="image/*"
-      >
-    </div>
-
-    <button class="primary" onclick="saveProfile()">
-      Save profile
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- NOTIFICATIONS -->
-
-<section id="notifications" class="page">
-
-  <h1 class="page-title">Notifications 🔔</h1>
 
   <div class="card">
 
-    <div id="notificationsList"></div>
+    <div class="form-grid">
+
+      <div class="field">
+        <label>🎀 Title</label>
+        <input id="postTitle" placeholder="My cute idea...">
+      </div>
+
+      <div class="field">
+        <label>🌸 Category</label>
+
+        <select id="postCategory">
+          <option value="cute">🐰 Cute</option>
+          <option value="study">📚 Study</option>
+          <option value="fashion">👗 Fashion</option>
+          <option value="food">🍓 Food</option>
+          <option value="art">🎨 Art</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label>💭 Description</label>
+        <textarea id="postDescription" placeholder="Tell LOOMA about it..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>🖼️ Optional photo</label>
+        <input id="postImage" type="file" accept="image/*">
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn primary" onclick="createPost()">
+      🎀 Publish to LOOMA
+    </button>
 
   </div>
 
 </section>
 
+<!-- PHOTOBOOTH -->
+<section id="photobooth" class="page">
+
+  <div class="section-title">
+    <div>
+      <h2>📸 LOOMA Photobooth</h2>
+      <p>take a cute little picture ✨</p>
+    </div>
+  </div>
+
+  <div class="photo-layout">
+
+    <div class="camera-box">
+
+      <video id="video" autoplay playsinline class="hidden"></video>
+
+      <canvas id="photoCanvas" class="hidden"></canvas>
+
+      <div id="photoPlaceholder" class="photo-placeholder">
+        📸<br>
+        <span style="font-size:16px;">your cute photo goes here 🎀</span>
+      </div>
+
+    </div>
+
+    <div class="photo-controls">
+
+      <div class="control-group">
+
+        <h4>📷 Camera</h4>
+
+        <div class="option-row">
+
+          <button class="option" onclick="startCamera()">
+            📹 Camera
+          </button>
+
+          <button class="option" onclick="takePhoto()">
+            📸 Take
+          </button>
+
+          <button class="option" onclick="stopCamera()">
+            🛑 Stop
+          </button>
+
+          <button class="option" onclick="clearPhoto()">
+            🔄 Retake
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="control-group">
+
+        <h4>🖼️ Upload</h4>
+
+        <input
+          id="photoUpload"
+          type="file"
+          accept="image/*"
+          onchange="uploadPhoto(event)"
+        >
+
+      </div>
+
+      <div class="control-group">
+
+        <h4>✨ Filter</h4>
+
+        <div class="option-row">
+
+          <button class="option active" onclick="setFilter('normal',this)">Normal</button>
+          <button class="option" onclick="setFilter('soft',this)">🌸 Soft</button>
+          <button class="option" onclick="setFilter('gray',this)">🖤 Gray</button>
+          <button class="option" onclick="setFilter('warm',this)">🍑 Warm</button>
+
+        </div>
+
+      </div>
+
+      <div class="control-group">
+
+        <h4>🎀 Frame</h4>
+
+        <div class="option-row">
+
+          <button class="option active" onclick="setFrame('none',this)">None</button>
+          <button class="option" onclick="setFrame('pink',this)">💗 Pink</button>
+          <button class="option" onclick="setFrame('white',this)">🤍 White</button>
+          <button class="option" onclick="setFrame('black',this)">🖤 Black</button>
+
+        </div>
+
+      </div>
+
+      <div class="control-group">
+
+        <h4>🌷 Sticker</h4>
+
+        <div class="option-row">
+
+          <button class="option active" onclick="setSticker('',this)">None</button>
+          <button class="option" onclick="setSticker('🎀',this)">🎀</button>
+          <button class="option" onclick="setSticker('🌸',this)">🌸</button>
+          <button class="option" onclick="setSticker('✨',this)">✨</button>
+          <button class="option" onclick="setSticker('🐰',this)">🐰</button>
+
+        </div>
+
+      </div>
+
+      <button class="btn primary" onclick="savePhoto()">
+        💾 Save Photo
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CLOSET -->
+<section id="closet" class="page">
+
+  <div class="section-title">
+    <div>
+      <h2>👗 Digital Closet</h2>
+      <p>your clothes, but make them cute ✨</p>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>👚 Item name</label>
+        <input id="clothingName" placeholder="Pink hoodie">
+      </div>
+
+      <div class="field">
+        <label>🏷️ Category</label>
+
+        <select id="clothingCategory">
+          <option value="top">👚 Top</option>
+          <option value="bottom">👖 Bottom</option>
+          <option value="dress">👗 Dress</option>
+          <option value="shoes">👟 Shoes</option>
+          <option value="accessory">🎀 Accessory</option>
+          <option value="outerwear">🧥 Outerwear</option>
+        </select>
+
+      </div>
+
+      <div class="field">
+        <label>📷 Photo</label>
+        <input id="clothingImage" type="file" accept="image/*">
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn primary" onclick="addClothing()">
+      ➕ Add to Closet
+    </button>
+
+  </div>
+
+  <div class="section-title">
+    <h2>🧸 Your wardrobe</h2>
+  </div>
+
+  <div id="closetGrid" class="closet-grid"></div>
+
+</section>
+
+<!-- OUTFITS -->
+<section id="outfits" class="page">
+
+  <div class="section-title">
+    <div>
+      <h2>✨ Outfit Generator</h2>
+      <p>let LOOMA pick a little outfit idea</p>
+    </div>
+  </div>
+
+  <div class="outfit-box">
+
+    <div style="font-size:60px;">🐰🎀👗</div>
+
+    <h2>What are we wearing today?</h2>
+
+    <p>
+      Your closet items will be mixed into a random outfit idea.
+    </p>
+
+    <button class="btn primary" onclick="generateOutfit()">
+      ✨ Generate Outfit
+    </button>
+
+    <div id="outfitDisplay" class="outfit-display"></div>
+
+  </div>
+
+</section>
+
+<!-- MEALS -->
+<section id="meals" class="page">
+
+  <div class="section-title">
+    <div>
+      <h2>🍓 Meal Plans</h2>
+      <p>fun, balanced meal ideas for the week 🌷</p>
+    </div>
+  </div>
+
+  <div class="hero" style="padding:25px;">
+
+    <div style="font-size:55px;">
+      🍓🥣🍝🥪
+    </div>
+
+    <h2>Let's make food planning cute. 🎀</h2>
+
+    <p>
+      Pick some meal ideas and build your own weekly plan.
+      No boring spreadsheets allowed. 🐰
+    </p>
+
+    <button class="btn primary" onclick="generateMealPlan()">
+      🍓 Generate My Week
+    </button>
+
+    <button class="btn" onclick="randomMeal()">
+      🎲 Surprise Me
+    </button>
+
+  </div>
+
+  <div class="section-title">
+    <div>
+      <h2>🌷 This week's plan</h2>
+    </div>
+  </div>
+
+  <div id="mealPlan" class="meal-grid"></div>
+
+  <div class="section-title">
+    <div>
+      <h2>🛒 Shopping List</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="shoppingList"></div>
+  </div>
+
+</section>
+
+<!-- MUSIC -->
+<section id="music" class="page">
+
+  <div class="section-title">
+    <div>
+      <h2>🎧 Music</h2>
+      <p>your tiny soundtrack 🎀</p>
+    </div>
+  </div>
+
+  <div class="music-box">
+
+    <div class="music-disc">🎧</div>
+
+    <h2 id="musicTitle">No song selected</h2>
+
+    <input
+      id="musicUpload"
+      type="file"
+      accept="audio/*"
+      onchange="uploadMusic(event)"
+    >
+
+    <br><br>
+
+    <audio id="audioPlayer" controls style="width:100%;"></audio>
+
+  </div>
+
+  <br>
+
+  <div id="musicList" class="grid"></div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="profile-head">
+
+    <div class="avatar" id="avatar">
+      🐰
+    </div>
+
+    <br>
+
+    <h2 id="profileName">LOOMA User 🎀</h2>
+
+    <p id="profileBio">
+      collecting cute little moments ✨
+    </p>
+
+  </div>
+
+  <br>
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>🐰 Name</label>
+        <input id="profileNameInput">
+      </div>
+
+      <div class="field">
+        <label>📷 Avatar</label>
+        <input id="avatarUpload" type="file" accept="image/*">
+      </div>
+
+      <div class="field full">
+        <label>💭 Bio</label>
+        <textarea id="profileBioInput"></textarea>
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn primary" onclick="saveProfile()">
+      💗 Save Profile
+    </button>
+
+  </div>
+
+</section>
+
+<!-- NOTIFICATIONS -->
+<section id="notifications" class="page">
+
+  <div class="section-title">
+    <div>
+      <h2>💌 Notifications</h2>
+      <p>little LOOMA updates ✨</p>
+    </div>
+  </div>
+
+  <div id="notificationsList"></div>
+
+</section>
 
 <!-- SETTINGS -->
-
 <section id="settings" class="page">
 
-  <h1 class="page-title">Settings ⚙️</h1>
+  <div class="section-title">
+    <div>
+      <h2>⚙️ Settings</h2>
+      <p>make LOOMA feel like yours 🎀</p>
+    </div>
+  </div>
 
-  <div class="card form-card">
+  <div class="settings-grid">
 
-    <div class="setting">
+    <div class="setting-card">
 
-      <div>
-        <strong>Theme</strong>
-        <div style="color:#777;font-size:14px">
-          Change the look of LOOMA
-        </div>
+      <h3>🎨 Theme</h3>
+
+      <p>Pick your LOOMA mood.</p>
+
+      <div class="theme-row">
+
+        <button class="theme pink" onclick="setTheme('pink')"></button>
+        <button class="theme lavender" onclick="setTheme('lavender')"></button>
+        <button class="theme mint" onclick="setTheme('mint')"></button>
+        <button class="theme peach" onclick="setTheme('peach')"></button>
+        <button class="theme dark" onclick="setTheme('dark')"></button>
+
       </div>
-
-      <select id="themeSelect" onchange="changeTheme(this.value)">
-        <option value="pink">Pink</option>
-        <option value="lavender">Lavender</option>
-        <option value="mint">Mint</option>
-        <option value="peach">Peach</option>
-        <option value="dark">Dark</option>
-      </select>
 
     </div>
 
+    <div class="setting-card">
 
-    <div class="setting">
+      <h3>🔒 Privacy</h3>
 
-      <div>
-        <strong>Notifications</strong>
-        <div style="color:#777;font-size:14px">
-          Allow LOOMA notifications
-        </div>
-      </div>
+      <p>
+        LOOMA's current version stores your data locally
+        in your browser.
+      </p>
 
-      <input
-        id="notificationToggle"
-        type="checkbox"
-        checked
-        onchange="saveSettings()"
-      >
-
-    </div>
-
-
-    <div class="setting">
-
-      <div>
-        <strong>Privacy</strong>
-        <div style="color:#777;font-size:14px">
-          Your current version stores data locally in this browser.
-        </div>
-      </div>
-
-      <button
-        class="small-btn"
-        onclick="showPrivacy()"
-      >
-        View
+      <button class="btn soft" onclick="showModal('privacy')">
+        🔒 Privacy Info
       </button>
 
     </div>
 
+    <div class="setting-card">
 
-    <div class="setting">
+      <h3>📜 Terms</h3>
 
-      <div>
-        <strong>Terms</strong>
-        <div style="color:#777;font-size:14px">
-          Read the LOOMA terms.
-        </div>
-      </div>
+      <p>
+        Read the basic rules for using your LOOMA space.
+      </p>
 
-      <button
-        class="small-btn"
-        onclick="showTerms()"
-      >
-        View
+      <button class="btn soft" onclick="showModal('terms')">
+        📜 View Terms
       </button>
 
     </div>
 
+    <div class="setting-card">
 
-    <div class="setting">
+      <h3>🧹 Data</h3>
 
-      <div>
-        <strong>Reset LOOMA</strong>
-        <div style="color:#777;font-size:14px">
-          Delete local LOOMA data from this browser.
-        </div>
-      </div>
+      <p>
+        Clear everything stored locally by LOOMA.
+      </p>
 
-      <button
-        class="danger"
-        onclick="clearAllData()"
-      >
-        Clear data
+      <button class="btn danger" onclick="clearData()">
+        🧹 Clear All Data
       </button>
 
     </div>
@@ -1414,226 +1623,293 @@ img{
 </section>
 
 </main>
-
+</div>
 
 <!-- MOBILE NAV -->
-
 <nav class="mobile-nav">
 
-  <button onclick="showPage('home')">
-    🏠
-    <span>Home</span>
-  </button>
-
-  <button onclick="showPage('discover')">
-    🔎
-    <span>Discover</span>
-  </button>
-
-  <button onclick="showPage('create')">
-    ➕
-    <span>Create</span>
-  </button>
-
-  <button onclick="showPage('meals')">
-    🍱
-    <span>Meals</span>
-  </button>
-
-  <button onclick="showPage('profile')">
-    👤
-    <span>Profile</span>
-  </button>
+  <button onclick="showPage('home')">🏠<br>Home</button>
+  <button onclick="showPage('discover')">🔎<br>Explore</button>
+  <button onclick="showPage('create')">🎀<br>Create</button>
+  <button onclick="showPage('meals')">🍓<br>Meals</button>
+  <button onclick="showPage('profile')">🐰<br>Me</button>
 
 </nav>
 
-
 <!-- MODAL -->
-
 <div id="modal" class="modal">
 
   <div class="modal-box">
 
-    <div
-      style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:10px
-      "
-    >
-
-      <h2 id="modalTitle">
-        LOOMA
-      </h2>
-
-      <button
-        class="icon-btn"
-        onclick="closeModal()"
-      >
-        ✕
-      </button>
-
-    </div>
-
     <div id="modalContent"></div>
+
+    <br>
+
+    <button class="btn primary" onclick="closeModal()">
+      🎀 Close
+    </button>
 
   </div>
 
 </div>
 
-
-<div id="toast" class="toast"></div>
-
-
 <script>
 
-/* =========================================================
+/* ==========================================
    LOOMA DATA
-========================================================= */
+========================================== */
 
-const STORAGE_KEY = "LOOMA_FREE_V2";
+const STORAGE_KEY = "LOOMA_CUTE_V3";
 
-let state = JSON.parse(
-  localStorage.getItem(STORAGE_KEY) || "null"
-);
+const emojiByCategory = {
+  cute:"🐰🎀🌸✨",
+  study:"📚🧸☕️✏️",
+  fashion:"👗🎀👛✨",
+  food:"🍓🥣🍰🍜",
+  art:"🎨🖍️🌈🧸"
+};
 
-if(!state){
+const clothingEmoji = {
+  top:"👚",
+  bottom:"👖",
+  dress:"👗",
+  shoes:"👟",
+  accessory:"🎀",
+  outerwear:"🧥"
+};
 
-  state = {
+const mealData = {
 
-    profile:{
-      name:"LOOMA User",
-      bio:"Creating my little world ✨",
-      avatar:""
+  breakfast:[
+    {
+      name:"Strawberry Yogurt Bowl",
+      emoji:"🍓🥣",
+      ingredients:["yogurt","strawberries","banana","granola"]
     },
-
-    posts:[],
-
-    saved:[],
-
-    closet:[],
-
-    notifications:[
-      {
-        text:"Welcome to LOOMA! 🌷",
-        time:"Just now"
-      }
-    ],
-
-    music:[],
-
-    mealPlan:[],
-
-    shoppingList:[],
-
-    settings:{
-      theme:"pink",
-      notifications:true
+    {
+      name:"Banana Toast",
+      emoji:"🍌🍞",
+      ingredients:["bread","banana","peanut butter"]
+    },
+    {
+      name:"Cute Pancakes",
+      emoji:"🥞🫐",
+      ingredients:["pancake mix","berries","honey"]
+    },
+    {
+      name:"Egg Toast",
+      emoji:"🍳🍞",
+      ingredients:["bread","eggs","cheese"]
     }
+  ],
 
-  };
+  lunch:[
+    {
+      name:"Cheesy Pasta",
+      emoji:"🍝🧀",
+      ingredients:["pasta","cheese","tomato sauce"]
+    },
+    {
+      name:"Veggie Wrap",
+      emoji:"🌯🥬",
+      ingredients:["tortilla","lettuce","tomato","cheese"]
+    },
+    {
+      name:"Rice Bowl",
+      emoji:"🍚🥕",
+      ingredients:["rice","vegetables","egg"]
+    },
+    {
+      name:"Mini Sandwich",
+      emoji:"🥪🍅",
+      ingredients:["bread","cheese","tomato","lettuce"]
+    }
+  ],
 
-}
+  dinner:[
+    {
+      name:"Tomato Pasta",
+      emoji:"🍝🍅",
+      ingredients:["pasta","tomato sauce","cheese"]
+    },
+    {
+      name:"Chicken Rice Bowl",
+      emoji:"🍗🍚",
+      ingredients:["rice","chicken","vegetables"]
+    },
+    {
+      name:"Veggie Noodles",
+      emoji:"🍜🥬",
+      ingredients:["noodles","vegetables","soy sauce"]
+    },
+    {
+      name:"Cheese Quesadilla",
+      emoji:"🧀🌮",
+      ingredients:["tortilla","cheese","tomato"]
+    }
+  ],
+
+  snack:[
+    {
+      name:"Fruit Plate",
+      emoji:"🍎🍓🍌",
+      ingredients:["apple","strawberries","banana"]
+    },
+    {
+      name:"Popcorn",
+      emoji:"🍿✨",
+      ingredients:["popcorn"]
+    },
+    {
+      name:"Toast & Fruit",
+      emoji:"🍞🍓",
+      ingredients:["bread","fruit"]
+    },
+    {
+      name:"Yogurt & Berries",
+      emoji:"🥣🫐",
+      ingredients:["yogurt","berries"]
+    }
+  ]
+
+};
+
+let state = {
+  profile:{
+    name:"LOOMA User 🎀",
+    bio:"collecting cute little moments ✨",
+    avatar:""
+  },
+
+  posts:[],
+
+  saved:[],
+
+  closet:[],
+
+  notifications:[
+    {
+      icon:"🐰",
+      text:"Welcome to LOOMA! Your cute little corner is ready. 🎀"
+    },
+    {
+      icon:"🌸",
+      text:"Try creating your first post!"
+    }
+  ],
+
+  music:[],
+
+  mealPlan:[],
+
+  shoppingList:[],
+
+  theme:"pink"
+};
 
 
-/* =========================================================
+/* ==========================================
    DEFAULT POSTS
-========================================================= */
+========================================== */
 
 const defaultPosts = [
 
   {
     id:"default1",
-    title:"Cozy study corner",
-    description:"A calm little setup for getting through homework.",
+    title:"Cozy Study Corner",
     category:"study",
-    image:"https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80"
+    description:"Make homework feel a little less homework-y. 📚🧸☕️",
+    emoji:"📚🧸☕️✏️"
   },
 
   {
     id:"default2",
-    title:"Soft everyday outfit",
-    description:"A simple comfy outfit idea.",
+    title:"Pink Outfit Energy",
     category:"fashion",
-    image:"https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80"
+    description:"Tiny accessories + a cute outfit = instant mood boost. 🎀",
+    emoji:"👗🎀👛✨"
   },
 
   {
     id:"default3",
-    title:"Cute breakfast",
-    description:"Fruit, toast and something warm to drink.",
+    title:"Strawberry Snack",
     category:"food",
-    image:"https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80"
+    description:"A fruity little snack for a happy afternoon. 🍓",
+    emoji:"🍓🥣🍌✨"
   },
 
   {
     id:"default4",
-    title:"Creative afternoon",
-    description:"Grab some paper and make something.",
+    title:"Draw Something Cute",
     category:"art",
-    image:"https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=80"
+    description:"Grab a pencil and turn five minutes into something adorable. 🎨",
+    emoji:"🎨🖍️🌈🐰"
+  },
+
+  {
+    id:"default5",
+    title:"Tiny Room Reset",
+    category:"cute",
+    description:"Put on music, tidy one tiny corner and add one cute thing. 🌸",
+    emoji:"🧸🪴🎀🫧"
+  },
+
+  {
+    id:"default6",
+    title:"Playlist Mood",
+    category:"cute",
+    description:"Make a tiny playlist for your current main-character moment. 🎧✨",
+    emoji:"🎧💗🎶🌷"
   }
 
 ];
 
 
-if(state.posts.length === 0){
+/* ==========================================
+   STORAGE
+========================================== */
 
-  state.posts = defaultPosts.map(post => ({
-    ...post,
-    createdBy:"LOOMA",
-    createdAt:Date.now()
-  }));
+function loadState(){
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(saved){
+
+    try{
+
+      state = {
+        ...state,
+        ...JSON.parse(saved)
+      };
+
+    }catch(e){
+      console.log("Could not load LOOMA data.");
+    }
+
+  }
+
+  if(!state.posts || state.posts.length === 0){
+    state.posts = defaultPosts;
+  }
 
   saveState();
 
 }
 
-
-/* =========================================================
-   SAVE STATE
-========================================================= */
-
 function saveState(){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(state)
-  );
-
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
 }
 
 
-/* =========================================================
-   TOAST
-========================================================= */
-
-function toast(message){
-
-  const el = document.getElementById("toast");
-
-  el.textContent = message;
-
-  el.classList.add("show");
-
-  setTimeout(()=>{
-    el.classList.remove("show");
-  },2200);
-
-}
-
-
-/* =========================================================
-   PAGE NAVIGATION
-========================================================= */
+/* ==========================================
+   NAVIGATION
+========================================== */
 
 function showPage(page){
 
-  document.querySelectorAll(".page")
-    .forEach(el=>{
-      el.classList.remove("active");
-    });
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
 
   const target = document.getElementById(page);
 
@@ -1641,213 +1917,103 @@ function showPage(page){
     target.classList.add("active");
   }
 
-  document.querySelectorAll(".nav-btn")
-    .forEach(btn=>{
-      btn.classList.toggle(
-        "active",
-        btn.dataset.page === page
-      );
-    });
+  document.querySelectorAll("[data-page]").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page === page
+    );
+  });
+
+  renderEverything();
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
-  if(page==="home") renderHome();
-  if(page==="discover") renderDiscover();
-  if(page==="saved") renderSaved();
-  if(page==="closet") renderCloset();
-  if(page==="music") renderMusic();
-  if(page==="profile") renderProfile();
-  if(page==="notifications") renderNotifications();
-  if(page==="meals") renderMealPage();
-
 }
 
 
-/* =========================================================
-   SEARCH
-========================================================= */
+/* ==========================================
+   POST RENDER
+========================================== */
 
-function handleGlobalSearch(event){
+function renderPosts(containerId,posts){
 
-  if(event.key !== "Enter") return;
-
-  const query = event.target.value.trim();
-
-  showPage("discover");
-
-  const input =
-    document.getElementById("discoverSearch");
-
-  input.value = query;
-
-  renderDiscover();
-
-}
-
-
-let discoverCategory = "all";
-
-
-function setDiscoverCategory(category){
-
-  discoverCategory = category;
-
-  renderDiscover();
-
-}
-
-
-function renderDiscover(){
-
-  const container =
-    document.getElementById("discoverPosts");
+  const container = document.getElementById(containerId);
 
   if(!container) return;
 
-  const query =
-    document
-      .getElementById("discoverSearch")
-      .value
-      .toLowerCase()
-      .trim();
+  if(posts.length === 0){
 
-  let posts = [...state.posts];
-
-  if(discoverCategory !== "all"){
-
-    posts = posts.filter(
-      post => post.category === discoverCategory
-    );
-
-  }
-
-  if(query){
-
-    posts = posts.filter(post => {
-
-      const text = (
-        post.title + " " +
-        post.description + " " +
-        post.category
-      ).toLowerCase();
-
-      return text.includes(query);
-
-    });
-
-  }
-
-  renderPostGrid(container,posts);
-
-}
-
-
-/* =========================================================
-   POSTS
-========================================================= */
-
-function renderHome(){
-
-  const container =
-    document.getElementById("homePosts");
-
-  renderPostGrid(
-    container,
-    state.posts.slice().reverse().slice(0,8)
-  );
-
-}
-
-
-function renderSaved(){
-
-  const container =
-    document.getElementById("savedPosts");
-
-  const posts =
-    state.posts.filter(
-      post => state.saved.includes(post.id)
-    );
-
-  renderPostGrid(container,posts);
-
-}
-
-
-function renderPostGrid(container,posts){
-
-  if(!container) return;
-
-  if(posts.length===0){
-
-    container.innerHTML =
-      `<div class="card empty">
-        Nothing here yet 🌷
-      </div>`;
+    container.innerHTML = `
+      <div class="empty" style="grid-column:1/-1">
+        <div class="big">🐰💭</div>
+        <h3>Nothing here yet!</h3>
+        <p>Try creating something cute. 🎀</p>
+      </div>
+    `;
 
     return;
-
   }
 
-  container.innerHTML = posts.map(post => {
+  container.innerHTML = posts.map(post=>{
 
-    const isSaved =
-      state.saved.includes(post.id);
+    const saved = state.saved.includes(post.id);
+
+    const visual = post.image
+      ? `<img src="${post.image}" style="width:100%;height:100%;object-fit:cover;">`
+      : `
+        <div style="font-size:65px;letter-spacing:5px;">
+          ${post.emoji || emojiByCategory[post.category] || "🎀✨"}
+        </div>
+
+        <span class="tiny t1">✨</span>
+        <span class="tiny t2">🌸</span>
+        <span class="tiny t3">💗</span>
+        <span class="tiny t4">🎀</span>
+      `;
 
     return `
 
-      <article class="card post">
+      <article class="card">
 
-        <img
-          class="post-img"
-          src="${escapeAttr(post.image)}"
-          alt=""
-          onerror="this.src='https://placehold.co/800x800/ffe5f1/333?text=LOOMA'"
-        >
+        <div class="emoji-art">
+          ${visual}
+        </div>
 
-        <div class="post-body">
+        <br>
 
-          <div class="post-title">
-            ${escapeHTML(post.title)}
-          </div>
+        <span class="tag">
+          ${categoryLabel(post.category)}
+        </span>
 
-          <div class="post-desc">
-            ${escapeHTML(post.description)}
-          </div>
+        <h3>${escapeHTML(post.title)}</h3>
 
-          <div style="margin-top:9px">
-            <span class="tag">
-              ${escapeHTML(post.category)}
-            </span>
-          </div>
+        <p>${escapeHTML(post.description)}</p>
 
-          <div class="post-actions">
+        <div class="card-actions">
 
-            <button
-              class="small-btn"
-              onclick="toggleSave('${post.id}')"
-            >
-              ${isSaved ? "💗 Saved" : "♡ Save"}
-            </button>
+          <button
+            class="small-btn"
+            onclick="toggleSave('${post.id}')"
+          >
+            ${saved ? "💗 Saved" : "🤍 Save"}
+          </button>
 
-            <button
-              class="small-btn"
-              onclick="remixPost('${post.id}')"
-            >
-              🔄 Remix
-            </button>
+          <button
+            class="small-btn"
+            onclick="remixPost('${post.id}')"
+          >
+            🔄 Remix
+          </button>
 
-            <button
-              class="small-btn"
-              onclick="sharePost('${post.id}')"
-            >
-              ↗ Share
-            </button>
-
-          </div>
+          <button
+            class="small-btn"
+            onclick="sharePost('${post.id}')"
+          >
+            📤 Share
+          </button>
 
         </div>
 
@@ -1859,1142 +2025,512 @@ function renderPostGrid(container,posts){
 
 }
 
+function categoryLabel(category){
+
+  const labels = {
+    cute:"🐰 CUTE",
+    study:"📚 STUDY",
+    fashion:"👗 FASHION",
+    food:"🍓 FOOD",
+    art:"🎨 ART"
+  };
+
+  return labels[category] || "✨ LOOMA";
+
+}
+
+
+/* ==========================================
+   SAVE / REMIX / SHARE
+========================================== */
 
 function toggleSave(id){
 
   if(state.saved.includes(id)){
 
-    state.saved =
-      state.saved.filter(x=>x!==id);
-
-    toast("Removed from saved.");
+    state.saved = state.saved.filter(x=>x !== id);
 
   }else{
 
     state.saved.push(id);
 
-    toast("Saved 💗");
-
   }
 
   saveState();
-
-  renderHome();
-  renderDiscover();
-  renderSaved();
+  renderEverything();
 
 }
-
 
 function remixPost(id){
 
-  const original =
-    state.posts.find(post=>post.id===id);
+  const original = state.posts.find(p=>p.id === id);
 
   if(!original) return;
 
-  document.getElementById("postTitle").value =
-    "Remix: " + original.title;
+  const copy = {
+    ...original,
+    id:"post_" + Date.now(),
+    title:"Remixed ✨ " + original.title
+  };
 
-  document.getElementById("postDescription").value =
-    "My remix of this idea ✨";
+  state.posts.unshift(copy);
 
-  document.getElementById("postCategory").value =
-    original.category;
+  state.notifications.unshift({
+    icon:"🔄",
+    text:`You remixed "${original.title}"! 🎀`
+  });
 
-  showPage("create");
-
-  toast("Idea loaded into Create ✨");
+  saveState();
+  renderEverything();
 
 }
 
+function sharePost(id){
 
-async function sharePost(id){
-
-  const post =
-    state.posts.find(x=>x.id===id);
+  const post = state.posts.find(p=>p.id === id);
 
   if(!post) return;
 
-  const text =
-    `${post.title} | LOOMA`;
+  const text = `🎀 ${post.title}\n\n${post.description}\n\nMade with LOOMA ✨`;
 
-  try{
+  if(navigator.share){
 
-    if(navigator.share){
+    navigator.share({
+      title:post.title,
+      text:text
+    }).catch(()=>{});
 
-      await navigator.share({
-        title:post.title,
-        text
-      });
+  }else{
 
-    }else{
+    navigator.clipboard?.writeText(text);
 
-      await navigator.clipboard.writeText(text);
+    alert("📋 Copied the LOOMA post to your clipboard!");
 
-      toast("Copied!");
-
-    }
-
-  }catch(e){}
+  }
 
 }
 
 
-/* =========================================================
+/* ==========================================
    CREATE POST
-========================================================= */
-
-let pendingPostImage = "";
-
-
-function previewPostImage(event){
-
-  const file =
-    event.target.files[0];
-
-  if(!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = e => {
-
-    pendingPostImage = e.target.result;
-
-    const preview =
-      document.getElementById("postPreview");
-
-    preview.src = pendingPostImage;
-
-    preview.classList.remove("hidden");
-
-  };
-
-  reader.readAsDataURL(file);
-
-}
-
+========================================== */
 
 function createPost(){
 
-  const title =
-    document.getElementById("postTitle").value.trim();
-
-  const description =
-    document.getElementById("postDescription").value.trim();
-
-  const category =
-    document.getElementById("postCategory").value;
+  const title = document.getElementById("postTitle").value.trim();
+  const category = document.getElementById("postCategory").value;
+  const description = document.getElementById("postDescription").value.trim();
+  const file = document.getElementById("postImage").files[0];
 
   if(!title){
 
-    toast("Give your post a title!");
+    alert("🎀 Give your post a title first!");
 
     return;
 
   }
 
-  const post = {
+  const finish = imageData=>{
 
-    id:"post_"+Date.now(),
+    const post = {
 
-    title,
+      id:"post_" + Date.now(),
 
-    description,
+      title:title,
 
-    category,
+      category:category,
 
-    image:
-      pendingPostImage ||
-      "https://placehold.co/900x900/ffe5f1/333?text=LOOMA",
+      description:description || "A tiny little LOOMA moment. ✨",
 
-    createdBy:state.profile.name,
+      emoji:emojiByCategory[category],
 
-    createdAt:Date.now()
+      image:imageData || ""
+
+    };
+
+    state.posts.unshift(post);
+
+    state.notifications.unshift({
+      icon:"🎀",
+      text:`Your post "${title}" was created!`
+    });
+
+    saveState();
+
+    document.getElementById("postTitle").value="";
+    document.getElementById("postDescription").value="";
+    document.getElementById("postImage").value="";
+
+    alert("🎀 Your post is now on LOOMA!");
+
+    showPage("discover");
 
   };
-
-  state.posts.push(post);
-
-  state.notifications.unshift({
-    text:"Your new post was created! ✨",
-    time:"Just now"
-  });
-
-  saveState();
-
-  document.getElementById("postTitle").value="";
-  document.getElementById("postDescription").value="";
-  document.getElementById("postImage").value="";
-  document.getElementById("postPreview").classList.add("hidden");
-
-  pendingPostImage="";
-
-  toast("Post published ✨");
-
-  showPage("home");
-
-}
-
-
-/* =========================================================
-   PHOTOBOOTH
-========================================================= */
-
-let boothImage = null;
-let boothFilter = "none";
-let boothFrame = "none";
-let boothTemplate = "none";
-let cameraStream = null;
-
-
-function getCanvas(){
-
-  return document.getElementById("photoCanvas");
-
-}
-
-
-function loadBoothImage(event){
-
-  const file =
-    event.target.files[0];
-
-  if(!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = e => {
-
-    boothImage = new Image();
-
-    boothImage.onload = drawBooth;
-
-    boothImage.src = e.target.result;
-
-  };
-
-  reader.readAsDataURL(file);
-
-}
-
-
-function drawBooth(){
-
-  const canvas = getCanvas();
-
-  const ctx = canvas.getContext("2d");
-
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  if(!boothImage){
-
-    ctx.fillStyle="#fff7fb";
-
-    ctx.fillRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-    ctx.fillStyle="#777";
-
-    ctx.font="24px Arial";
-
-    ctx.textAlign="center";
-
-    ctx.fillText(
-      "Upload or take a photo 📸",
-      300,
-      300
-    );
-
-    return;
-
-  }
-
-  const size =
-    Math.min(
-      boothImage.width,
-      boothImage.height
-    );
-
-  const sx =
-    (boothImage.width-size)/2;
-
-  const sy =
-    (boothImage.height-size)/2;
-
-  ctx.filter =
-    getFilterCSS();
-
-  ctx.drawImage(
-    boothImage,
-    sx,
-    sy,
-    size,
-    size,
-    0,
-    0,
-    600,
-    600
-  );
-
-  ctx.filter="none";
-
-  drawFrame(ctx);
-
-  drawTemplate(ctx);
-
-}
-
-
-function getFilterCSS(){
-
-  if(boothFilter==="soft"){
-    return "brightness(1.05) saturate(.85)";
-  }
-
-  if(boothFilter==="gray"){
-    return "grayscale(1)";
-  }
-
-  if(boothFilter==="warm"){
-    return "sepia(.25) saturate(1.2)";
-  }
-
-  return "none";
-
-}
-
-
-function drawFrame(ctx){
-
-  if(boothFrame==="pink"){
-
-    ctx.strokeStyle="#ff9bc8";
-    ctx.lineWidth=22;
-
-  }else if(boothFrame==="white"){
-
-    ctx.strokeStyle="#ffffff";
-    ctx.lineWidth=22;
-
-  }else if(boothFrame==="black"){
-
-    ctx.strokeStyle="#17151a";
-    ctx.lineWidth=22;
-
-  }else{
-
-    return;
-
-  }
-
-  ctx.strokeRect(
-    11,
-    11,
-    578,
-    578
-  );
-
-}
-
-
-function drawTemplate(ctx){
-
-  ctx.textAlign="center";
-
-  if(boothTemplate==="cute"){
-
-    ctx.font="40px Arial";
-
-    ctx.fillText("♡  LOOMA  ♡",300,560);
-
-  }
-
-  if(boothTemplate==="stars"){
-
-    ctx.font="32px Arial";
-
-    ctx.fillText("✦  ✧  ✦  ✧  ✦",300,55);
-
-  }
-
-  if(boothTemplate==="flower"){
-
-    ctx.font="30px Arial";
-
-    ctx.fillText(
-      "🌸  🌷  🌸",
-      300,
-      560
-    );
-
-  }
-
-}
-
-
-function setPhotoFilter(filter){
-
-  boothFilter=filter;
-
-  drawBooth();
-
-}
-
-
-function setPhotoFrame(frame){
-
-  boothFrame=frame;
-
-  drawBooth();
-
-}
-
-
-function setPhotoTemplate(template){
-
-  boothTemplate=template;
-
-  drawBooth();
-
-}
-
-
-async function startCamera(){
-
-  try{
-
-    cameraStream =
-      await navigator.mediaDevices.getUserMedia({
-        video:true
-      });
-
-    const video =
-      document.getElementById("cameraVideo");
-
-    video.srcObject =
-      cameraStream;
-
-    video.classList.remove("hidden");
-
-    toast("Camera ready 📸");
-
-  }catch(error){
-
-    toast("Camera permission was not available.");
-
-  }
-
-}
-
-
-function takePhoto(){
-
-  const video =
-    document.getElementById("cameraVideo");
-
-  if(!cameraStream){
-
-    toast("Start the camera first.");
-
-    return;
-
-  }
-
-  const canvas =
-    document.createElement("canvas");
-
-  canvas.width=600;
-  canvas.height=600;
-
-  const ctx =
-    canvas.getContext("2d");
-
-  const size =
-    Math.min(
-      video.videoWidth,
-      video.videoHeight
-    );
-
-  const sx =
-    (video.videoWidth-size)/2;
-
-  const sy =
-    (video.videoHeight-size)/2;
-
-  ctx.drawImage(
-    video,
-    sx,
-    sy,
-    size,
-    size,
-    0,
-    0,
-    600,
-    600
-  );
-
-  boothImage =
-    new Image();
-
-  boothImage.onload =
-    drawBooth;
-
-  boothImage.src =
-    canvas.toDataURL("image/png");
-
-  toast("Photo taken 📸");
-
-}
-
-
-function retakePhoto(){
-
-  startCamera();
-
-}
-
-
-function stopCamera(){
-
-  if(cameraStream){
-
-    cameraStream
-      .getTracks()
-      .forEach(track=>track.stop());
-
-    cameraStream=null;
-
-  }
-
-  document
-    .getElementById("cameraVideo")
-    .classList.add("hidden");
-
-}
-
-
-function saveBoothPhoto(){
-
-  const canvas =
-    getCanvas();
-
-  const link =
-    document.createElement("a");
-
-  link.download =
-    "looma-photobooth.png";
-
-  link.href =
-    canvas.toDataURL("image/png");
-
-  link.click();
-
-  toast("Photo saved 💗");
-
-}
-
-
-/* =========================================================
-   CLOSET
-========================================================= */
-
-async function addClosetItem(){
-
-  const name =
-    document.getElementById("closetName").value.trim();
-
-  const category =
-    document.getElementById("closetCategory").value;
-
-  const file =
-    document.getElementById("closetImage").files[0];
-
-  if(!name){
-
-    toast("Name your clothing item.");
-
-    return;
-
-  }
-
-  let image =
-    "https://placehold.co/700x700/ffe5f1/333?text="+
-    encodeURIComponent(category);
 
   if(file){
 
-    image =
-      await fileToDataURL(file);
+    const reader = new FileReader();
 
-  }
+    reader.onload = e=>finish(e.target.result);
 
-  state.closet.push({
-
-    id:"closet_"+Date.now(),
-
-    name,
-
-    category,
-
-    image
-
-  });
-
-  saveState();
-
-  document.getElementById("closetName").value="";
-  document.getElementById("closetImage").value="";
-
-  renderCloset();
-
-  toast("Added to your closet 👗");
-
-}
-
-
-function renderCloset(){
-
-  const container =
-    document.getElementById("closetGrid");
-
-  if(!container) return;
-
-  if(state.closet.length===0){
-
-    container.innerHTML =
-      `<div class="card empty">
-        Your closet is empty. Add your first piece 👗
-      </div>`;
-
-    return;
-
-  }
-
-  container.innerHTML =
-    state.closet.map(item=>`
-
-      <div class="card closet-item">
-
-        <img
-          src="${escapeAttr(item.image)}"
-          alt=""
-        >
-
-        <div class="post-body">
-
-          <strong>
-            ${escapeHTML(item.name)}
-          </strong>
-
-          <div style="color:#777;margin:5px 0 10px">
-            ${escapeHTML(item.category)}
-          </div>
-
-          <button
-            class="danger"
-            onclick="deleteClosetItem('${item.id}')"
-          >
-            Remove
-          </button>
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-function deleteClosetItem(id){
-
-  state.closet =
-    state.closet.filter(
-      item=>item.id!==id
-    );
-
-  saveState();
-
-  renderCloset();
-
-  toast("Removed.");
-
-}
-
-
-/* =========================================================
-   OUTFIT GENERATOR
-========================================================= */
-
-function generateOutfit(){
-
-  const result =
-    document.getElementById("outfitResult");
-
-  if(state.closet.length===0){
-
-    result.innerHTML =
-      `<div class="empty">
-        Add some clothing to your closet first 👗
-      </div>`;
-
-    return;
-
-  }
-
-  const tops =
-    state.closet.filter(
-      x=>x.category==="Top"
-    );
-
-  const bottoms =
-    state.closet.filter(
-      x=>x.category==="Bottom"
-    );
-
-  const dresses =
-    state.closet.filter(
-      x=>x.category==="Dress"
-    );
-
-  const shoes =
-    state.closet.filter(
-      x=>x.category==="Shoes"
-    );
-
-  const accessories =
-    state.closet.filter(
-      x=>x.category==="Accessory"
-    );
-
-  const pick =
-    array =>
-      array.length
-        ? array[
-            Math.floor(
-              Math.random()*array.length
-            )
-          ]
-        : null;
-
-  const dress = pick(dresses);
-
-  let chosen = [];
-
-  if(dress){
-
-    chosen.push(dress);
+    reader.readAsDataURL(file);
 
   }else{
 
-    const top=pick(tops);
-    const bottom=pick(bottoms);
-
-    if(top) chosen.push(top);
-    if(bottom) chosen.push(bottom);
+    finish("");
 
   }
 
-  const shoe=pick(shoes);
+}
 
-  if(shoe) chosen.push(shoe);
 
-  const accessory=pick(accessories);
+/* ==========================================
+   SEARCH
+========================================== */
 
-  if(accessory) chosen.push(accessory);
+function searchEverything(){
 
-  result.innerHTML = `
+  const query = document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
 
-    <h2>Your outfit ✨</h2>
+  if(!query){
 
-    <div class="grid">
+    renderPosts("discoverPosts",state.posts);
 
-      ${chosen.map(item=>`
+    return;
 
-        <div class="card">
+  }
 
-          <img
-            src="${escapeAttr(item.image)}"
-            style="
-              width:100%;
-              aspect-ratio:1;
-              object-fit:cover;
-              border-radius:20px 20px 0 0
-            "
-          >
+  const results = state.posts.filter(post=>
 
-          <div class="post-body">
+    post.title.toLowerCase().includes(query) ||
 
-            <strong>
-              ${escapeHTML(item.name)}
-            </strong>
+    post.description.toLowerCase().includes(query) ||
 
-            <div style="color:#777">
-              ${escapeHTML(item.category)}
-            </div>
+    post.category.toLowerCase().includes(query)
 
-          </div>
+  );
 
-        </div>
+  showPage("discover");
 
-      `).join("")}
+  renderPosts("discoverPosts",results);
 
-    </div>
+}
 
-  `;
+function filterPosts(category){
+
+  if(category === "all"){
+
+    renderPosts("discoverPosts",state.posts);
+
+    return;
+
+  }
+
+  const results = state.posts.filter(
+    p=>p.category === category
+  );
+
+  renderPosts("discoverPosts",results);
 
 }
 
 
-/* =========================================================
-   MEAL PLANS
-========================================================= */
+/* ==========================================
+   CLOSET
+========================================== */
 
-const mealData = {
+function addClothing(){
 
-  breakfast:[
-    {
-      name:"Berry yogurt bowl",
-      emoji:"🍓",
-      description:"Yogurt with berries, banana and crunchy cereal.",
-      tags:["fruit","dairy","quick"],
-      ingredients:["yogurt","berries","banana","cereal"]
-    },
-    {
-      name:"Egg & toast breakfast",
-      emoji:"🍳",
-      description:"Eggs with toast and some fresh fruit.",
-      tags:["protein","fruit","simple"],
-      ingredients:["eggs","bread","fruit"]
-    },
-    {
-      name:"Banana oatmeal",
-      emoji:"🍌",
-      description:"Warm oats with banana and a little cinnamon.",
-      tags:["warm","easy","fruit"],
-      ingredients:["oats","banana","cinnamon","milk"]
-    },
-    {
-      name:"Peanut butter toast",
-      emoji:"🥜",
-      description:"Toast with peanut butter and sliced banana.",
-      tags:["quick","energy","fruit"],
-      ingredients:["bread","peanut butter","banana"]
-    }
-  ],
+  const name = document.getElementById("clothingName").value.trim();
+  const category = document.getElementById("clothingCategory").value;
+  const file = document.getElementById("clothingImage").files[0];
 
-  lunch:[
-    {
-      name:"Chicken rice bowl",
-      emoji:"🍚",
-      description:"Rice with chicken and colorful vegetables.",
-      tags:["balanced","warm","vegetables"],
-      ingredients:["rice","chicken","carrot","cucumber"]
-    },
-    {
-      name:"Cheese veggie sandwich",
-      emoji:"🥪",
-      description:"A sandwich with cheese and crunchy vegetables.",
-      tags:["easy","vegetables","lunch"],
-      ingredients:["bread","cheese","lettuce","tomato","cucumber"]
-    },
-    {
-      name:"Pasta & vegetables",
-      emoji:"🍝",
-      description:"Pasta with vegetables and a simple sauce.",
-      tags:["comfort","vegetables","warm"],
-      ingredients:["pasta","tomato","bell pepper","cheese"]
-    },
-    {
-      name:"Chickpea wrap",
-      emoji:"🌯",
-      description:"A wrap filled with chickpeas and fresh vegetables.",
-      tags:["vegetarian","fresh","filling"],
-      ingredients:["wrap","chickpeas","lettuce","tomato"]
-    }
-  ],
+  if(!name){
 
-  dinner:[
-    {
-      name:"Vegetable noodles",
-      emoji:"🍜",
-      description:"Noodles mixed with colorful vegetables.",
-      tags:["warm","vegetables","easy"],
-      ingredients:["noodles","carrot","bell pepper","broccoli"]
-    },
-    {
-      name:"Dal & rice",
-      emoji:"🍛",
-      description:"Comforting dal served with rice and vegetables.",
-      tags:["Indian","warm","comfort"],
-      ingredients:["dal","rice","vegetables"]
-    },
-    {
-      name:"Chicken wraps",
-      emoji:"🌯",
-      description:"Soft wraps with chicken and fresh vegetables.",
-      tags:["quick","fresh","family"],
-      ingredients:["wrap","chicken","lettuce","tomato"]
-    },
-    {
-      name:"Veggie pasta",
-      emoji:"🍝",
-      description:"Pasta with vegetables and a tomato-based sauce.",
-      tags:["vegetarian","warm","easy"],
-      ingredients:["pasta","tomato","zucchini","cheese"]
-    }
-  ],
+    alert("👗 Give the clothing item a name!");
 
-  snack:[
-    {
-      name:"Fruit & yogurt",
-      emoji:"🍓",
-      description:"Fresh fruit with yogurt.",
-      tags:["fresh","quick","fruit"],
-      ingredients:["fruit","yogurt"]
-    },
-    {
-      name:"Apple & nut butter",
-      emoji:"🍎",
-      description:"Apple slices with nut butter.",
-      tags:["quick","fruit","crunchy"],
-      ingredients:["apple","nut butter"]
-    },
-    {
-      name:"Cheese & crackers",
-      emoji:"🧀",
-      description:"A simple snack plate with cheese and crackers.",
-      tags:["savory","quick"],
-      ingredients:["cheese","crackers"]
-    },
-    {
-      name:"Banana smoothie",
-      emoji:"🥤",
-      description:"A creamy banana smoothie.",
-      tags:["drink","fruit","quick"],
-      ingredients:["banana","milk","yogurt"]
-    }
-  ]
+    return;
 
-};
+  }
 
+  const finish = image=>{
 
-const mealDays = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday"
-];
+    state.closet.push({
 
+      id:"clothing_" + Date.now(),
 
-function randomFrom(array){
+      name:name,
 
-  return array[
-    Math.floor(
-      Math.random()*array.length
-    )
-  ];
+      category:category,
 
-}
-
-
-function generateMealPlan(){
-
-  const plan=[];
-
-  mealDays.forEach(day=>{
-
-    plan.push({
-
-      day,
-
-      breakfast:randomFrom(mealData.breakfast),
-
-      lunch:randomFrom(mealData.lunch),
-
-      dinner:randomFrom(mealData.dinner),
-
-      snack:randomFrom(mealData.snack)
+      image:image || ""
 
     });
 
-  });
+    saveState();
 
-  state.mealPlan=plan;
+    document.getElementById("clothingName").value="";
+    document.getElementById("clothingImage").value="";
+
+    renderCloset();
+
+  };
+
+  if(file){
+
+    const reader = new FileReader();
+
+    reader.onload=e=>finish(e.target.result);
+
+    reader.readAsDataURL(file);
+
+  }else{
+
+    finish("");
+
+  }
+
+}
+
+function renderCloset(){
+
+  const grid = document.getElementById("closetGrid");
+
+  if(!grid) return;
+
+  if(state.closet.length === 0){
+
+    grid.innerHTML=`
+
+      <div class="empty" style="grid-column:1/-1">
+
+        <div class="big">👗🎀</div>
+
+        <h3>Your closet is empty!</h3>
+
+        <p>Add your first clothing item above. ✨</p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML = state.closet.map(item=>`
+
+    <div class="clothing-card">
+
+      <div class="clothing-emoji">
+
+        ${
+          item.image
+          ? `<img src="${item.image}" style="width:100%;height:100%;object-fit:cover;border-radius:18px;">`
+          : clothingEmoji[item.category]
+        }
+
+      </div>
+
+      <h3>${escapeHTML(item.name)}</h3>
+
+      <p>${item.category}</p>
+
+      <button
+        class="small-btn"
+        onclick="deleteClothing('${item.id}')"
+      >
+        🗑️ Remove
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function deleteClothing(id){
+
+  state.closet = state.closet.filter(
+    item=>item.id !== id
+  );
+
+  saveState();
+  renderCloset();
+
+}
+
+
+/* ==========================================
+   OUTFIT GENERATOR
+========================================== */
+
+function generateOutfit(){
+
+  const display = document.getElementById("outfitDisplay");
+
+  if(state.closet.length < 2){
+
+    display.innerHTML=`
+
+      <div class="empty" style="width:100%">
+
+        <div class="big">👗💭</div>
+
+        <h3>Add some clothes first!</h3>
+
+        <p>
+          Add at least a couple of closet items
+          so LOOMA can build an outfit.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  const tops = state.closet.filter(
+    x=>x.category==="top"
+  );
+
+  const bottoms = state.closet.filter(
+    x=>x.category==="bottom"
+  );
+
+  const dresses = state.closet.filter(
+    x=>x.category==="dress"
+  );
+
+  const shoes = state.closet.filter(
+    x=>x.category==="shoes"
+  );
+
+  const accessories = state.closet.filter(
+    x=>x.category==="accessory"
+  );
+
+  let pieces=[];
+
+  if(dresses.length && Math.random()>.5){
+
+    pieces.push(randomItem(dresses));
+
+  }else{
+
+    if(tops.length) pieces.push(randomItem(tops));
+    if(bottoms.length) pieces.push(randomItem(bottoms));
+
+  }
+
+  if(shoes.length) pieces.push(randomItem(shoes));
+
+  if(accessories.length) pieces.push(randomItem(accessories));
+
+  if(pieces.length===0){
+
+    pieces = [
+      randomItem(state.closet)
+    ];
+
+  }
+
+  display.innerHTML = pieces.map(item=>`
+
+    <div class="outfit-piece">
+
+      <div class="big">
+
+        ${
+          item.image
+          ? `<img src="${item.image}" style="width:75px;height:75px;object-fit:cover;border-radius:15px;">`
+          : clothingEmoji[item.category]
+        }
+
+      </div>
+
+      <strong>${escapeHTML(item.name)}</strong>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* ==========================================
+   MEALS
+========================================== */
+
+function randomItem(array){
+
+  return array[Math.floor(Math.random()*array.length)];
+
+}
+
+function generateMealPlan(){
+
+  const days=[
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
+
+  state.mealPlan = days.map(day=>{
+
+    return {
+
+      day:day,
+
+      breakfast:randomItem(mealData.breakfast),
+
+      lunch:randomItem(mealData.lunch),
+
+      dinner:randomItem(mealData.dinner),
+
+      snack:randomItem(mealData.snack)
+
+    };
+
+  });
 
   buildShoppingList();
 
   saveState();
 
-  renderMealPage();
-
-  toast("Your week is planned 🍱");
+  renderMeals();
 
 }
 
+function randomMeal(){
 
-function renderMealPage(){
+  const types=[
+    "breakfast",
+    "lunch",
+    "dinner",
+    "snack"
+  ];
 
-  const container =
-    document.getElementById("mealPlan");
+  const type=randomItem(types);
+  const meal=randomItem(mealData[type]);
 
-  if(!container) return;
-
-  if(!state.mealPlan.length){
-
-    container.innerHTML =
-      `<div class="card empty">
-        Click "Generate weekly plan" to create your week 🌷
-      </div>`;
-
-    renderShoppingList();
-
-    return;
-
-  }
-
-  container.innerHTML =
-    state.mealPlan.map(day=>`
-
-      <div class="card meal-day">
-
-        <h3>${day.day}</h3>
-
-        <div class="meal-slot">
-
-          <strong>🌞 Breakfast</strong>
-
-          <span>
-            ${day.breakfast.emoji}
-            ${escapeHTML(day.breakfast.name)}
-          </span>
-
-        </div>
-
-        <div class="meal-slot">
-
-          <strong>🥪 Lunch</strong>
-
-          <span>
-            ${day.lunch.emoji}
-            ${escapeHTML(day.lunch.name)}
-          </span>
-
-        </div>
-
-        <div class="meal-slot">
-
-          <strong>🍝 Dinner</strong>
-
-          <span>
-            ${day.dinner.emoji}
-            ${escapeHTML(day.dinner.name)}
-          </span>
-
-        </div>
-
-        <div class="meal-slot">
-
-          <strong>🍓 Snack</strong>
-
-          <span>
-            ${day.snack.emoji}
-            ${escapeHTML(day.snack.name)}
-          </span>
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-  renderShoppingList();
+  alert(
+    `${meal.emoji} ${meal.name}\n\n` +
+    `✨ ${type.toUpperCase()}\n\n` +
+    `Ingredients: ${meal.ingredients.join(", ")}`
+  );
 
 }
-
-
-function randomMeal(type){
-
-  const meal =
-    randomFrom(mealData[type]);
-
-  const container =
-    document.getElementById("randomMealResult");
-
-  container.innerHTML = `
-
-    <div class="card meal-card">
-
-      <div class="meal-emoji">
-        ${meal.emoji}
-      </div>
-
-      <h3>
-        ${escapeHTML(meal.name)}
-      </h3>
-
-      <p>
-        ${escapeHTML(meal.description)}
-      </p>
-
-      <div class="meal-tags">
-
-        ${meal.tags.map(tag=>`
-          <span class="tag">
-            ${escapeHTML(tag)}
-          </span>
-        `).join("")}
-
-      </div>
-
-      <button
-        class="secondary"
-        onclick="addMealToShoppingList('${encodeURIComponent(JSON.stringify(meal.ingredients))}')"
-      >
-        🛒 Add ingredients
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-function addMealToShoppingList(encoded){
-
-  try{
-
-    const ingredients =
-      JSON.parse(
-        decodeURIComponent(encoded)
-      );
-
-    state.shoppingList = [
-      ...new Set([
-        ...state.shoppingList,
-        ...ingredients
-      ])
-    ];
-
-    saveState();
-
-    renderShoppingList();
-
-    toast("Added to shopping list 🛒");
-
-  }catch(e){}
-
-}
-
 
 function buildShoppingList(){
 
@@ -3002,18 +2538,15 @@ function buildShoppingList(){
 
   state.mealPlan.forEach(day=>{
 
-    [
-      day.breakfast,
-      day.lunch,
-      day.dinner,
-      day.snack
-    ].forEach(meal=>{
+    ["breakfast","lunch","dinner","snack"].forEach(type=>{
 
-      if(meal && meal.ingredients){
+      if(day[type]){
 
-        ingredients.push(
-          ...meal.ingredients
-        );
+        day[type].ingredients.forEach(item=>{
+          if(!ingredients.includes(item)){
+            ingredients.push(item);
+          }
+        });
 
       }
 
@@ -3021,114 +2554,113 @@ function buildShoppingList(){
 
   });
 
-  state.shoppingList=[
-    ...new Set(ingredients)
-  ];
+  state.shoppingList=ingredients;
 
 }
 
+function renderMeals(){
 
-function renderShoppingList(){
+  const container=document.getElementById("mealPlan");
 
-  const container =
-    document.getElementById("shoppingList");
+  const list=document.getElementById("shoppingList");
 
-  if(!container) return;
-
-  if(!state.shoppingList.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        Your shopping list will appear here 🛒
-      </div>`;
-
-    return;
-
-  }
-
-  container.innerHTML =
-    state.shoppingList.map((item,index)=>`
-
-      <div
-        style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          padding:11px;
-          border-bottom:1px solid #eee;
-        "
-      >
-
-        <span>
-          🛒 ${escapeHTML(item)}
-        </span>
-
-        <button
-          class="small-btn"
-          onclick="removeShoppingItem(${index})"
-        >
-          ✓
-        </button>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-function removeShoppingItem(index){
-
-  state.shoppingList.splice(index,1);
-
-  saveState();
-
-  renderShoppingList();
-
-}
-
-
-function saveCurrentMealPlan(){
+  if(!container || !list) return;
 
   if(!state.mealPlan.length){
 
-    toast("Generate a plan first!");
+    container.innerHTML=`
+
+      <div class="empty" style="grid-column:1/-1">
+
+        <div class="big">🍓🥣</div>
+
+        <h3>No weekly plan yet!</h3>
+
+        <p>Press "Generate My Week" above. 🎀</p>
+
+      </div>
+
+    `;
+
+    list.innerHTML="<p>🛒 Your shopping list will appear here.</p>";
 
     return;
 
   }
 
-  state.notifications.unshift({
-    text:"Your meal plan was saved 🍱",
-    time:"Just now"
-  });
+  container.innerHTML=state.mealPlan.map(day=>`
 
-  saveState();
+    <div class="meal-day">
 
-  toast("Meal plan saved 💗");
+      <h3>🌷 ${day.day}</h3>
+
+      ${mealHTML("☀️ Breakfast",day.breakfast)}
+
+      ${mealHTML("🥪 Lunch",day.lunch)}
+
+      ${mealHTML("🌙 Dinner",day.dinner)}
+
+      ${mealHTML("🍓 Snack",day.snack)}
+
+    </div>
+
+  `).join("");
+
+  list.innerHTML=state.shoppingList.map(item=>`
+
+    <div style="
+      padding:9px;
+      margin:5px 0;
+      background:#fff3f8;
+      border-radius:13px;
+    ">
+      🛒 ${escapeHTML(item)}
+    </div>
+
+  `).join("");
+
+}
+
+function mealHTML(label,meal){
+
+  if(!meal) return "";
+
+  return `
+
+    <div class="meal-item">
+
+      <div class="meal-emoji">
+        ${meal.emoji}
+      </div>
+
+      <small>${label}</small>
+
+      <strong>${escapeHTML(meal.name)}</strong>
+
+    </div>
+
+  `;
 
 }
 
 
-/* =========================================================
+/* ==========================================
    MUSIC
-========================================================= */
+========================================== */
 
-function addMusic(event){
+function uploadMusic(event){
 
-  const file =
-    event.target.files[0];
+  const file=event.target.files[0];
 
   if(!file) return;
 
-  const reader =
-    new FileReader();
+  const reader=new FileReader();
 
   reader.onload=e=>{
 
-    state.music.push({
+    state.music.unshift({
 
-      id:"music_"+Date.now(),
+      id:"music_" + Date.now(),
 
       name:file.name,
 
@@ -3140,7 +2672,338 @@ function addMusic(event){
 
     renderMusic();
 
-    toast("Music added 🎵");
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+function playMusic(id){
+
+  const song=state.music.find(x=>x.id===id);
+
+  if(!song) return;
+
+  const player=document.getElementById("audioPlayer");
+
+  const title=document.getElementById("musicTitle");
+
+  player.src=song.data;
+
+  title.textContent="🎧 " + song.name;
+
+  player.play().catch(()=>{});
+
+}
+
+function deleteMusic(id){
+
+  state.music=state.music.filter(x=>x.id!==id);
+
+  saveState();
+
+  renderMusic();
+
+}
+
+function renderMusic(){
+
+  const container=document.getElementById("musicList");
+
+  if(!container) return;
+
+  if(!state.music.length){
+
+    container.innerHTML=`
+
+      <div class="empty" style="grid-column:1/-1">
+
+        <div class="big">🎧🌸</div>
+
+        <h3>No music uploaded yet!</h3>
+
+        <p>Add an audio file above to create your local playlist.</p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML=state.music.map(song=>`
+
+    <div class="card">
+
+      <div class="emoji-art">
+        🎧🎶💗
+      </div>
+
+      <h3>${escapeHTML(song.name)}</h3>
+
+      <button
+        class="btn primary"
+        onclick="playMusic('${song.id}')"
+      >
+        ▶️ Play
+      </button>
+
+      <button
+        class="btn danger"
+        onclick="deleteMusic('${song.id}')"
+      >
+        🗑️
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+function saveProfile(){
+
+  const name=document.getElementById("profileNameInput").value.trim();
+  const bio=document.getElementById("profileBioInput").value.trim();
+  const file=document.getElementById("avatarUpload").files[0];
+
+  const finish=image=>{
+
+    state.profile.name=name || "LOOMA User 🎀";
+
+    state.profile.bio=bio || "collecting cute little moments ✨";
+
+    if(image){
+      state.profile.avatar=image;
+    }
+
+    saveState();
+
+    renderProfile();
+
+    alert("🐰 Profile saved!");
+
+  };
+
+  if(file){
+
+    const reader=new FileReader();
+
+    reader.onload=e=>finish(e.target.result);
+
+    reader.readAsDataURL(file);
+
+  }else{
+
+    finish("");
+
+  }
+
+}
+
+function renderProfile(){
+
+  const name=document.getElementById("profileName");
+  const bio=document.getElementById("profileBio");
+  const avatar=document.getElementById("avatar");
+
+  const nameInput=document.getElementById("profileNameInput");
+  const bioInput=document.getElementById("profileBioInput");
+
+  if(!name) return;
+
+  name.textContent=state.profile.name;
+
+  bio.textContent=state.profile.bio;
+
+  nameInput.value=state.profile.name;
+
+  bioInput.value=state.profile.bio;
+
+  if(state.profile.avatar){
+
+    avatar.innerHTML=
+      `<img src="${state.profile.avatar}">`;
+
+  }else{
+
+    avatar.innerHTML="🐰";
+
+  }
+
+}
+
+
+/* ==========================================
+   NOTIFICATIONS
+========================================== */
+
+function renderNotifications(){
+
+  const container=document.getElementById("notificationsList");
+
+  if(!container) return;
+
+  container.innerHTML=state.notifications.map(n=>`
+
+    <div class="card" style="margin-bottom:12px;">
+
+      <div style="font-size:35px;">
+        ${n.icon}
+      </div>
+
+      <p>${escapeHTML(n.text)}</p>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+/* ==========================================
+   PHOTOBOOTH
+========================================== */
+
+let stream=null;
+let currentImage=null;
+let currentFilter="normal";
+let currentFrame="none";
+let currentSticker="";
+
+function startCamera(){
+
+  navigator.mediaDevices
+    .getUserMedia({
+      video:true,
+      audio:false
+    })
+    .then(s=>{
+
+      stream=s;
+
+      const video=document.getElementById("video");
+
+      video.srcObject=s;
+
+      video.classList.remove("hidden");
+
+      document
+        .getElementById("photoPlaceholder")
+        .classList.add("hidden");
+
+    })
+    .catch(()=>{
+
+      alert(
+        "📸 Camera access wasn't available. " +
+        "You can still upload a photo!"
+      );
+
+    });
+
+}
+
+function stopCamera(){
+
+  if(stream){
+
+    stream.getTracks().forEach(track=>track.stop());
+
+    stream=null;
+
+  }
+
+}
+
+function takePhoto(){
+
+  const video=document.getElementById("video");
+
+  if(video.classList.contains("hidden")){
+
+    alert("📸 Start the camera first!");
+
+    return;
+
+  }
+
+  const canvas=document.getElementById("photoCanvas");
+
+  canvas.width=video.videoWidth || 640;
+  canvas.height=video.videoHeight || 480;
+
+  const ctx=canvas.getContext("2d");
+
+  ctx.filter=canvasFilter();
+
+  ctx.drawImage(
+    video,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  drawSticker(ctx,canvas);
+
+  drawFrame(ctx,canvas);
+
+  video.classList.add("hidden");
+
+  canvas.classList.remove("hidden");
+
+}
+
+function uploadPhoto(event){
+
+  const file=event.target.files[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+
+    const img=new Image();
+
+    img.onload=()=>{
+
+      const canvas=document.getElementById("photoCanvas");
+
+      canvas.width=img.width;
+      canvas.height=img.height;
+
+      const ctx=canvas.getContext("2d");
+
+      ctx.filter=canvasFilter();
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      drawSticker(ctx,canvas);
+      drawFrame(ctx,canvas);
+
+      canvas.classList.remove("hidden");
+
+      document
+        .getElementById("photoPlaceholder")
+        .classList.add("hidden");
+
+    };
+
+    img.src=e.target.result;
 
   };
 
@@ -3148,436 +3011,289 @@ function addMusic(event){
 
 }
 
+function clearPhoto(){
 
-function renderMusic(){
+  const canvas=document.getElementById("photoCanvas");
 
-  const container =
-    document.getElementById("musicList");
+  canvas.classList.add("hidden");
 
-  if(!container) return;
+  document
+    .getElementById("photoPlaceholder")
+    .classList.remove("hidden");
 
-  if(state.music.length===0){
+  currentSticker="";
 
-    container.innerHTML =
-      `<div class="card empty">
-        Add an audio file to create your playlist 🎵
-      </div>`;
+}
+
+function canvasFilter(){
+
+  if(currentFilter==="soft"){
+    return "brightness(1.06) saturate(0.85)";
+  }
+
+  if(currentFilter==="gray"){
+    return "grayscale(1)";
+  }
+
+  if(currentFilter==="warm"){
+    return "sepia(.18) saturate(1.2)";
+  }
+
+  return "none";
+
+}
+
+function drawSticker(ctx,canvas){
+
+  if(!currentSticker) return;
+
+  ctx.font="70px Arial";
+
+  ctx.fillText(
+    currentSticker,
+    25,
+    85
+  );
+
+}
+
+function drawFrame(ctx,canvas){
+
+  if(currentFrame==="none") return;
+
+  const width=18;
+
+  if(currentFrame==="pink"){
+    ctx.strokeStyle="#ff9fc8";
+  }
+
+  if(currentFrame==="white"){
+    ctx.strokeStyle="#ffffff";
+  }
+
+  if(currentFrame==="black"){
+    ctx.strokeStyle="#171217";
+  }
+
+  ctx.lineWidth=width;
+
+  ctx.strokeRect(
+    width/2,
+    width/2,
+    canvas.width-width,
+    canvas.height-width
+  );
+
+}
+
+function setFilter(filter,button){
+
+  currentFilter=filter;
+
+  document.querySelectorAll(".control-group:nth-of-type(3) .option")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+}
+
+function setFrame(frame,button){
+
+  currentFrame=frame;
+
+  button.parentElement
+    .querySelectorAll(".option")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+}
+
+function setSticker(sticker,button){
+
+  currentSticker=sticker;
+
+  button.parentElement
+    .querySelectorAll(".option")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+}
+
+function savePhoto(){
+
+  const canvas=document.getElementById("photoCanvas");
+
+  if(canvas.classList.contains("hidden")){
+
+    alert("📸 Take or upload a photo first!");
 
     return;
 
   }
 
-  container.innerHTML =
-    state.music.map((song,index)=>`
+  const link=document.createElement("a");
 
-      <div class="card music-item">
+  link.download="looma-photo.png";
 
-        <div class="music-icon">
-          🎵
-        </div>
+  link.href=canvas.toDataURL("image/png");
 
-        <div style="flex:1">
-
-          <strong>
-            ${escapeHTML(song.name)}
-          </strong>
-
-          <audio
-            controls
-            style="width:100%;margin-top:7px"
-            src="${escapeAttr(song.data)}"
-          ></audio>
-
-        </div>
-
-        <button
-          class="danger"
-          onclick="deleteMusic(${index})"
-        >
-          Remove
-        </button>
-
-      </div>
-
-    `).join("");
+  link.click();
 
 }
 
 
-function deleteMusic(index){
-
-  state.music.splice(index,1);
-
-  saveState();
-
-  renderMusic();
-
-  toast("Removed.");
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function renderProfile(){
-
-  document.getElementById("profileName")
-    .textContent =
-      state.profile.name;
-
-  document.getElementById("profileBio")
-    .textContent =
-      state.profile.bio;
-
-  document.getElementById("editName")
-    .value =
-      state.profile.name;
-
-  document.getElementById("editBio")
-    .value =
-      state.profile.bio;
-
-  const avatar =
-    document.getElementById("profileAvatar");
-
-  if(state.profile.avatar){
-
-    avatar.src =
-      state.profile.avatar;
-
-  }else{
-
-    avatar.src =
-      "https://placehold.co/300x300/ffe1ef/333?text=%E2%9C%A8";
-
-  }
-
-}
-
-
-async function saveProfile(){
-
-  const name =
-    document.getElementById("editName")
-      .value
-      .trim();
-
-  const bio =
-    document.getElementById("editBio")
-      .value
-      .trim();
-
-  if(name){
-
-    state.profile.name=name;
-
-  }
-
-  state.profile.bio =
-    bio || "Creating my little world ✨";
-
-  const file =
-    document.getElementById("editAvatar")
-      .files[0];
-
-  if(file){
-
-    state.profile.avatar =
-      await fileToDataURL(file);
-
-  }
-
-  saveState();
-
-  renderProfile();
-
-  toast("Profile updated ✨");
-
-}
-
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-function renderNotifications(){
-
-  const container =
-    document.getElementById("notificationsList");
-
-  if(!container) return;
-
-  if(state.notifications.length===0){
-
-    container.innerHTML =
-      `<div class="empty">
-        No notifications yet.
-      </div>`;
-
-    return;
-
-  }
-
-  container.innerHTML =
-    state.notifications.map(item=>`
-
-      <div class="notification">
-
-        <strong>
-          ${escapeHTML(item.text)}
-        </strong>
-
-        <div
-          style="
-            color:#888;
-            font-size:13px;
-            margin-top:4px
-          "
-        >
-          ${escapeHTML(item.time)}
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* =========================================================
-   SETTINGS / THEMES
-========================================================= */
-
-function changeTheme(theme){
-
-  state.settings.theme=theme;
-
-  saveState();
-
-  applyTheme(theme);
-
-}
-
-
-function applyTheme(theme){
-
-  const root =
-    document.documentElement;
-
-  if(theme==="pink"){
-
-    root.style.setProperty(
-      "--pink",
-      "#ffb6d9"
-    );
-
-    root.style.setProperty(
-      "--pink2",
-      "#ffd9eb"
-    );
-
-    root.style.setProperty(
-      "--soft",
-      "#fff7fb"
-    );
-
-  }
+/* ==========================================
+   THEMES
+========================================== */
+
+function setTheme(theme){
+
+  document.body.classList.toggle(
+    "dark",
+    theme==="dark"
+  );
 
   if(theme==="lavender"){
 
-    root.style.setProperty(
-      "--pink",
-      "#cdb9ff"
+    document.documentElement.style.setProperty(
+      "--pink","#d9c4ff"
     );
 
-    root.style.setProperty(
-      "--pink2",
-      "#e9e0ff"
+    document.documentElement.style.setProperty(
+      "--hot","#a66cff"
     );
 
-    root.style.setProperty(
-      "--soft",
-      "#faf8ff"
+  }else if(theme==="mint"){
+
+    document.documentElement.style.setProperty(
+      "--pink","#bdeedb"
     );
 
-  }
-
-  if(theme==="mint"){
-
-    root.style.setProperty(
-      "--pink",
-      "#a9e8d2"
+    document.documentElement.style.setProperty(
+      "--hot","#51b98b"
     );
 
-    root.style.setProperty(
-      "--pink2",
-      "#d8f7eb"
+  }else if(theme==="peach"){
+
+    document.documentElement.style.setProperty(
+      "--pink","#ffc5aa"
     );
 
-    root.style.setProperty(
-      "--soft",
-      "#f5fffb"
+    document.documentElement.style.setProperty(
+      "--hot","#ff8565"
     );
 
-  }
+  }else{
 
-  if(theme==="peach"){
-
-    root.style.setProperty(
-      "--pink",
-      "#ffc39c"
+    document.documentElement.style.setProperty(
+      "--pink","#ffb6d9"
     );
 
-    root.style.setProperty(
-      "--pink2",
-      "#ffe5d5"
-    );
-
-    root.style.setProperty(
-      "--soft",
-      "#fff9f5"
+    document.documentElement.style.setProperty(
+      "--hot","#ff5fa2"
     );
 
   }
 
-  if(theme==="dark"){
-
-    root.style.setProperty(
-      "--pink",
-      "#e19ac0"
-    );
-
-    root.style.setProperty(
-      "--pink2",
-      "#3b2935"
-    );
-
-    root.style.setProperty(
-      "--soft",
-      "#17151a"
-    );
-
-    document.body.style.background="#17151a";
-    document.body.style.color="#fff";
-
-    return;
-
-  }
-
-  document.body.style.background="";
-  document.body.style.color="";
-
-}
-
-
-function saveSettings(){
-
-  state.settings.notifications =
-    document.getElementById(
-      "notificationToggle"
-    ).checked;
+  state.theme=theme;
 
   saveState();
 
 }
 
 
-/* =========================================================
-   PRIVACY / TERMS
-========================================================= */
+/* ==========================================
+   MODALS
+========================================== */
 
-function showPrivacy(){
+function showModal(type){
 
-  openModal(
-    "Privacy",
-    `
+  const modal=document.getElementById("modal");
+  const content=document.getElementById("modalContent");
+
+  if(type==="privacy"){
+
+    content.innerHTML=`
+
+      <h2>🔒 LOOMA Privacy</h2>
+
       <p>
-        This version of LOOMA stores information such as posts,
-        profile information, closet items and settings locally
-        in your browser.
+        This version of LOOMA stores your saved information
+        in your browser using local storage.
       </p>
 
       <p>
-        Your information is not being sent to a LOOMA server by
-        this version.
+        Uploaded photos, profile information, closet items
+        and other local data are not automatically uploaded
+        to a LOOMA server by this version.
       </p>
 
       <p>
-        If LOOMA becomes an online service, its privacy system
-        will need to be updated before collecting user accounts,
-        messages or other online information.
+        If you clear your browser data, local LOOMA data may
+        also disappear.
       </p>
-    `
-  );
+
+      <div style="font-size:50px;text-align:center;">
+        🔒🐰🎀
+      </div>
+
+    `;
+
+  }
+
+  if(type==="terms"){
+
+    content.innerHTML=`
+
+      <h2>📜 LOOMA Terms</h2>
+
+      <p>
+        Use LOOMA respectfully and only upload content you
+        have permission to use.
+      </p>
+
+      <p>
+        LOOMA is designed as a creative personal space for
+        organizing ideas, photos, outfits, meals and music.
+      </p>
+
+      <p>
+        Be kind, protect your privacy and don't share
+        private information publicly.
+      </p>
+
+      <div style="font-size:50px;text-align:center;">
+        📜🌸🐰
+      </div>
+
+    `;
+
+  }
+
+  modal.classList.add("show");
 
 }
-
-
-function showTerms(){
-
-  openModal(
-    "Terms",
-    `
-      <p>
-        LOOMA is a creative and organizational app.
-      </p>
-
-      <p>
-        Do not upload content you do not have permission to use.
-      </p>
-
-      <p>
-        Be respectful when sharing content.
-      </p>
-
-      <p>
-        This local version does not provide online communication
-        between users.
-      </p>
-    `
-  );
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function openModal(title,content){
-
-  document.getElementById("modalTitle")
-    .textContent=title;
-
-  document.getElementById("modalContent")
-    .innerHTML=content;
-
-  document.getElementById("modal")
-    .classList.add("show");
-
-}
-
 
 function closeModal(){
 
-  document.getElementById("modal")
+  document
+    .getElementById("modal")
     .classList.remove("show");
 
 }
 
 
-/* =========================================================
+/* ==========================================
    CLEAR DATA
-========================================================= */
+========================================== */
 
-function clearAllData(){
+function clearData(){
 
-  const confirmed =
-    confirm(
-      "Delete all LOOMA data stored in this browser?"
-    );
+  const confirmed=confirm(
+    "🧹 Are you sure you want to clear all LOOMA data?"
+  );
 
   if(!confirmed) return;
 
@@ -3588,87 +3304,70 @@ function clearAllData(){
 }
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+/* ==========================================
+   SEARCH ESCAPE
+========================================== */
 
-function fileToDataURL(file){
+function escapeHTML(text){
 
-  return new Promise((resolve,reject)=>{
+  const div=document.createElement("div");
 
-    const reader =
-      new FileReader();
+  div.textContent=text;
 
-    reader.onload =
-      () => resolve(reader.result);
-
-    reader.onerror =
-      reject;
-
-    reader.readAsDataURL(file);
-
-  });
+  return div.innerHTML;
 
 }
 
 
-function escapeHTML(value){
+/* ==========================================
+   RENDER EVERYTHING
+========================================== */
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+function renderEverything(){
 
-}
-
-
-function escapeAttr(value){
-
-  return String(value ?? "")
-    .replace(/"/g,"%22")
-    .replace(/'/g,"%27");
-
-}
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-function initialize(){
-
-  applyTheme(
-    state.settings.theme
+  renderPosts(
+    "homePosts",
+    state.posts.slice(0,6)
   );
 
-  renderHome();
-  renderDiscover();
-  renderSaved();
+  renderPosts(
+    "discoverPosts",
+    state.posts
+  );
+
+  const savedPosts=state.posts.filter(
+    p=>state.saved.includes(p.id)
+  );
+
+  renderPosts(
+    "savedPosts",
+    savedPosts
+  );
+
   renderCloset();
+
+  renderMeals();
+
   renderMusic();
+
   renderProfile();
+
   renderNotifications();
-  renderMealPage();
-
-  const themeSelect =
-    document.getElementById("themeSelect");
-
-  themeSelect.value =
-    state.settings.theme;
-
-  document.getElementById(
-    "notificationToggle"
-  ).checked =
-    state.settings.notifications;
-
-  drawBooth();
 
 }
 
 
-initialize();
+/* ==========================================
+   START
+========================================== */
+
+loadState();
+
+setTheme(state.theme || "pink");
+
+renderEverything();
+
+showPage("home");
 
 </script>
 
